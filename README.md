@@ -1,4 +1,3 @@
-SFML-Game
+Pokemon Game using SFML
 =========
 
-A simple Pokemon game in SFML
