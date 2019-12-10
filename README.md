@@ -1,2 +1,4 @@
-# Pokemon
-Pokemon game C++
+SFML-Game
+=========
+
+A simple Pokemon game in SFML
