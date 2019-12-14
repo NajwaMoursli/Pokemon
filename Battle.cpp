@@ -236,7 +236,7 @@ void Battle::InitalizeUser() {
 
 }
 
-//De même pour 
+//De même pour les autres joueurs
 void Battle::ResetAsh() {
 
 	ash.m_pokemon.clear();
