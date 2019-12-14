@@ -1,11 +1,11 @@
 #pragma once
 #include "Header.h"
 
-// Intro to to game
+// Intro du jeu 
 class Intro {
 
 public:
-	// Shows the intro to game
+	// Visualisation du début du jeu 
 	void show(sf::RenderWindow &window);
 
 };
