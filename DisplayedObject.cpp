@@ -1,19 +1,18 @@
 #pragma once
 #include "DisplayedObject.h"
-
+//Définition du constructeur par défaut de la classe DisplayedObject
 DisplayedObject::DisplayedObject()
 	: m_loaded(true)
 {
 
 }
 
-
+//Définition du Destructeur
 DisplayedObject::~DisplayedObject()
 {
 }
 
-// Loads the displayed object if
-// a valid filename is provided
+// Chargement de l'objet à affiché si un nom de fichier valide est donné 
 void DisplayedObject::Load(std::string filename)
 {
 	if(m_texture.loadFromFile(filename) == false)
@@ -28,7 +27,7 @@ void DisplayedObject::Load(std::string filename)
 	}
 }
 
-// Draw the displayed objects
+
 void DisplayedObject::Draw(sf::RenderWindow &window)
 {
 	if(m_loaded)
@@ -37,7 +36,7 @@ void DisplayedObject::Draw(sf::RenderWindow &window)
 	}
 }
 
-// Set the position of the displayed object
+
 void DisplayedObject::SetPosition(float x, float y)
 {
 	if(m_loaded)
