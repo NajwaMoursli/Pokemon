@@ -2,7 +2,7 @@
 #include "Header.h"
 #include <vector>
 
-// Forward declerations
+// Déclarations anticipées
 class DisplayedObject;
 class Player;
 
@@ -19,39 +19,39 @@ class Game;
 class Trainer;
 class PlayTurn;
 
-// Represents the Game
+// Represente le Jeu
 class Game
 {
 public:
-	// Starts the game
+	//Fonction début du Jeu 
 	static void Start();
 
 private:
 
-	// State of the game - the dfferent scenes, cutscenes, etc
+	// Statut du Jeu : différentes scènes possibles, utilisation type enum pour simplification
 	enum GameState { UNINITIALIZED, INTRO, RULES, ROOM, ROOMIN, ROOMOUT, BATTLE, EXITING };
 
-	// Helper for moving the legs of a player
+	// Mouvements des jambes du joeur
 	enum Action { STILL, MOVE_LEFT_LEG, MOVE_RIGHT_LEG };
 
-	// State of the game
+	// Statut du jeu
 	static GameState stateOfGame;
 
-	// Window of the game
+	// Fenetre du jeu
 	static sf::RenderWindow window;
 
-	// Players of the game
+	// Joueurs
 	static Player user;
 	static Player ash;
 
-	// Displayed images
+	// Images affichées
 	static DisplayedObject roomBackground;
 	static DisplayedObject exclamationMark;
 
-	// Loops the game until the player quits
+	// Fait tourner le jeu jusqu'à que le joueur le quitte
 	static void Loop();
 	
-	// Show the different scenes/cutscenes
+	// Montre les différentes scènes
 	static void ShowIntro();
 	static void ShowRules();
 	static void ShowRoom();
@@ -59,15 +59,14 @@ private:
 	static void ShowRoomOut();
 	static void ShowBattle();
 
-	// Draw the player, ash, and background
+	// dessin des joeurs et du fond d'écran
 	static void DrawAllRoom();
 
-	// Helps with the in and out cutscenes
+	// Scenes coupées d'entréée et sorties
 	static void In();
 	static void Out();
 
-	// Helpers for walking. Uses a sprite sheet to imitate a character
-	// moving
+	//Utilisation d'une Sprite sheet  pour imiter le mouvement d'un personnage du jeu
 	static void MovePlayer (Direction direction, Player* movingPlayer);
 	static void WalkHelper (Direction direction, Action action, Player* movingPlayer);
 	static void WalkHelperII (Direction direction, Action action, Player* movingPlayer);
