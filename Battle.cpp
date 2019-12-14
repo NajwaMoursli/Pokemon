@@ -2,7 +2,7 @@
 #include "Trainer.h"
 #include "PlayTurn.h"
 
-// Initalizes stateOfGame to play
+// Initalisation de la fonction stateOfGame pour commencer à jouer
 BattleState Battle::stateOfGame = PLAY;
 
 Trainer Battle::user;
@@ -31,10 +31,10 @@ DisplayedObject Battle::sand;
 sf::RectangleShape Battle::uH(sf::Vector2f(200, 50));
 sf::RectangleShape Battle::aH(sf::Vector2f(200, 50));
 
-// Shows the battle
+// Visualisation du combat
 void Battle::show(sf::RenderWindow &window)
 {
-	// Loads the different backgrounds of the battle scene
+	// Téléchargement des différents fonds d'écran de la scène de combat 
 	sf::Texture battleT;
 	if(battleT.loadFromFile("images/BattleBackground.png") != true) {
 		return;
@@ -61,7 +61,7 @@ void Battle::show(sf::RenderWindow &window)
 
 	stateOfGame = PLAY;
 	
-	// Initalizes/resets trainers
+	// Initalisation/remise à zéros des entraineurs
 	InitalizeLoads();
 	InitalizeUser();
 	ResetAsh();
@@ -69,11 +69,11 @@ void Battle::show(sf::RenderWindow &window)
 	while(stateOfGame == PLAY)
 	{
 
-		// Displays the health of the Pokemon in the CMD each loop
+		// Affiche les Points de vie du Pokemon dans l'invite de commande à chaque bouble 
 		DisplayAllHealth();
 
-		// Draws everything to the screen and displays it
-		// each loop
+		//Dessin et affichage à l'écran à chaque boucle
+		
 		DrawAll(window, &battle);
 
 		sf::Event currentEvent;
@@ -81,12 +81,12 @@ void Battle::show(sf::RenderWindow &window)
 		{
 			window.waitEvent(currentEvent);
 
-			// Exit the screen if closed is clicked
+			// Sortie de l'écran si on clique sur "Closed" 
 			if(currentEvent.type == sf::Event::Closed) { 
 				exit(0);
 			}
 
-			// Decide on Moves, Switch, Items, and Run
+			// Decider des mouvements, changements de pokemons, éléments 
 			if(currentEvent.type == sf::Event::KeyPressed)
 			{
 				if(currentEvent.key.code == sf::Keyboard::Num1) {
@@ -117,17 +117,17 @@ void Battle::show(sf::RenderWindow &window)
 
 }
 
-// Displays the health of all the Pokemon in the CMD
+// Affiche Point de vie de tous les Pokémons dans CMD
 void Battle::DisplayAllHealth() {
 
-	// Clears the screen and displays the health
+	// Efface écran et affiche point de vie 
 	system("CLS");
 	user.DisplayHealth();
 	ash.DisplayHealth();
 
 }
 
-// Draws everything to the screen and displays it
+// Dessin et affichage à l'écran
 void Battle::DrawAll(sf::RenderWindow &window, sf::Sprite * background) {
 
 	window.clear();
@@ -147,7 +147,7 @@ void Battle::DrawAll(sf::RenderWindow &window, sf::Sprite * background) {
 
 }
 
-// Draws the weather
+// Dessin du climat
 void Battle::DrawWeather(sf::RenderWindow &window) {
 
 	if (Pokemon::weather == SUNNYDAY) {
@@ -166,7 +166,7 @@ void Battle::DrawWeather(sf::RenderWindow &window) {
 
 }
 
-// Loads the images
+// Chargement des différentes images
 void Battle::InitalizeLoads() {
 
 	rain.Load("images/RainDance.png");
@@ -208,8 +208,7 @@ void Battle::InitalizeLoads() {
 
 }
 
-// Initalizes/resets the vector of the Pokemon
-// and Items for the user
+// Initalisation du vecteur Pokemon et de celui de ces élements 
 void Battle::InitalizeUser() {
 
 	user.m_pokemon.clear();
@@ -237,8 +236,7 @@ void Battle::InitalizeUser() {
 
 }
 
-// Initalizes the vector of the Pokemon
-// and Items for Ash
+//De même pour 
 void Battle::ResetAsh() {
 
 	ash.m_pokemon.clear();
@@ -261,7 +259,7 @@ void Battle::ResetAsh() {
 	assert (ash.m_pokemon.size() == 6);
 }
 
-// Display the moves
+// Affiche les mouvements
 void Battle::ShowMove(sf::RenderWindow &window, sf::Sprite * background) {
 
 	DrawAll(window, background);
@@ -269,7 +267,7 @@ void Battle::ShowMove(sf::RenderWindow &window, sf::Sprite * background) {
 
 }
 
-// Chooses a move and plays the whole turn
+// Choisir un mouvement puis jouer une partie 
 BattleState Battle::chooseMove(sf::RenderWindow &window) {
 
 	sf::Event currentEvent;
@@ -277,7 +275,7 @@ BattleState Battle::chooseMove(sf::RenderWindow &window) {
 	{
 		window.waitEvent(currentEvent);
 
-		// Close the screen if close is clicked
+		
 		if(currentEvent.type == sf::Event::Closed) {
 			exit(0);
 		}
@@ -306,7 +304,7 @@ BattleState Battle::chooseMove(sf::RenderWindow &window) {
 
 }
 
-// Display the Pokemon
+// Affichage du Pokemon
 void Battle::ShowPokemon(sf::RenderWindow &window, sf::Sprite * background) {
 
 	DrawAll(window, background);
@@ -314,7 +312,7 @@ void Battle::ShowPokemon(sf::RenderWindow &window, sf::Sprite * background) {
 
 }
 
-// Choose a Pokemon and play the whole turn
+// Choisir un Pokemon puis jour une partie
 BattleState Battle::choosePokemon(sf::RenderWindow &window) {
 
 	sf::Event currentEvent;
@@ -366,7 +364,7 @@ BattleState Battle::choosePokemon(sf::RenderWindow &window) {
 	}
 }
 
-// Display the Items
+// Affichage des élements
 void Battle::ShowItem(sf::RenderWindow &window,  sf::Sprite * background) {
 
 	DrawAll(window, background);
@@ -374,7 +372,7 @@ void Battle::ShowItem(sf::RenderWindow &window,  sf::Sprite * background) {
 
 }
 
-// Choose a Potion and play the whole turn
+// Choisir une Potion puis jouer une partie
 BattleState Battle::choosePotion(sf::RenderWindow &window) {
 
 	sf::Event currentEvent;
