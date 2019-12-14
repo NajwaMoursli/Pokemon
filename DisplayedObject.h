@@ -1,26 +1,25 @@
 #pragma once
 #include "Header.h"
 
-// Represents an object that is displayed to
-// screen
+// Represente un objet affiché à l'écran 
 class DisplayedObject {
 
 public:
 
-	// X and Y location of the object
+	// coordonnée (x,y) dans un plan de l'objet (pour le localiser)
 	float m_x;
 	float m_y;
 
-	DisplayedObject();
-	virtual ~DisplayedObject();
+	DisplayedObject();//Constructeur par défaut
+	virtual ~DisplayedObject();//Destructeur
 
-	// Loads the object from a file
+	// Chargement d'objet à partir d'un fichier
 	virtual void Load(std::string filename);
 
-	// Draws the object
+	// Dessin de l'objet
 	virtual void Draw(sf::RenderWindow &window);
 
-	// Sets a new position of the object
+	// Nouvelle position (donc changement de coordonnée) de l'objet par méthode Set
 	virtual void SetPosition(float x, float y);
 
 protected:
