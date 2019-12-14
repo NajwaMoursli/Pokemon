@@ -32,7 +32,7 @@ private:
 	static Item uI1;
 	static Item uI2;
 
-	// Ash's Pokemon
+	// Pokemon des autres joueurs
 	static Fire aF1;
 	static Fire aF2;
 	static Water aW3;
@@ -67,7 +67,7 @@ private:
 	static void ShowMove(sf::RenderWindow &window, sf::Sprite * background);
 	static BattleState chooseMove(sf::RenderWindow &window);
 
-	// Commutation de l'écran
+	//Montre Changement de Pokemon
 	static void ShowPokemon(sf::RenderWindow &window, sf::Sprite * background);
 	static BattleState choosePokemon(sf::RenderWindow &window);
 
