@@ -5,8 +5,8 @@
 #include "SFML\System.hpp"
 #include "SFML\Window.hpp"
 
-#include <assert.h>
-// #define NDEBUG // Debug mode on/off for assert statements
+#include <assert.h> // Debuggage
+
 
 enum Direction { DOWN, LEFT, UP, RIGHT };
 enum Type { FIRE, GRASS, WATER };
