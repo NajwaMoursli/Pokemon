@@ -6,10 +6,9 @@
 #include "Battle.h"
 #include "Item.h"
 
-// The game is originally UNITIALIZED, since it is
-// just starting
+//Le jeu n'est pas initialisé car vient de commencer 
 Game::GameState Game::stateOfGame = UNINITIALIZED;
-sf::RenderWindow Game::window;
+sf::RenderWindow Game::window;// Création d'une fenetre 2D grace à SFML
 
 Player Game::user;
 Player Game::ash;
@@ -17,14 +16,14 @@ Player Game::ash;
 DisplayedObject Game::roomBackground;
 DisplayedObject Game::exclamationMark;
 
-// Starts the game
+// Début du jeu
 void Game::Start()
 {
-	// Simple control check
+	//Vérification
 	if(stateOfGame != UNINITIALIZED)
 		return;
 
-	// Loads
+	// Chargement
 	window.create(sf::VideoMode(SCREENWIDTH, SCREENHEIGHT), "Poke Game");
 
 	roomBackground.Load("images/RoomBackground.jpg");
@@ -39,8 +38,7 @@ void Game::Start()
 
 	stateOfGame = Game::INTRO;
 
-	// Loops the game until the game state
-	// has changed to EXITING
+	//Le jeu continue jusqu'à que le statut change en "exiting" donc sortie du jeu
 	while(stateOfGame != Game::EXITING)
 	{
 		Loop();
@@ -49,8 +47,7 @@ void Game::Start()
 	window.close();
 }
 
-// Checks what scene/cutscene the state is in
-// and plays that scene
+// Vérifie quelle scène du jeu s'affiche et le jeu se déroule dans cette scene, différente scene donc utilisation switch/case
 void Game::Loop()
 {	
 
@@ -99,46 +96,46 @@ void Game::Loop()
 	}
 }
 
-// Displays the intro
+// Affiche l'Intro (début du jeu)
 void Game::ShowIntro()
 {
 	Intro Intro;
 	window.clear();
 	Intro.show(window);
 
-	// Transistions into ROOMIN
+	//Transition vers RULES
 	stateOfGame = RULES;
 }
 
-// Displays the rules
+// Affiche les regles du jeu
 void Game::ShowRules()
 {
 	Rules Rule;
 	window.clear();
 	Rule.show(window);
 
-	// Transistions into ROOMIN
+	// Transistion vers ROMMIN
 	stateOfGame = ROOMIN;
 }
 
 
-// Displays the room
+// Affiche la pièce
 void Game::ShowRoom()
 {
-	// Draws everything to the room
+	
 	DrawAllRoom();
 
-	sf::Event currentEvent;
+	sf::Event currentEvent;// définition des différentes actions sur clavier qui permette de jouer (actions dans le jeu)
 	while(true)
 	{
 		window.waitEvent(currentEvent);
 
-		// If close is clicked then close the screen
+		// Fermer l'écran si on clique sur "Closed"
 		if(currentEvent.type == sf::Event::Closed) { 
 			stateOfGame = EXITING;
 		}
 
-		// Move the user
+		// Mouvement du joeur
 		if(currentEvent.type == sf::Event::KeyPressed)
 		{
 			if(currentEvent.key.code == sf::Keyboard::Space) {
@@ -179,16 +176,14 @@ void Game::ShowRoomIn()
 
 }
 
-// Displays the Ash walking out cutscene
+// Affiche la sortie de l'autre joueur
 void Game::ShowRoomOut()
 {
 	Out();
-	// Transitions into the ash walking
-	// in cutscene
 	stateOfGame = ROOMIN;
 }
 
-// Shows a new battle between Ash and the user
+//Nouveau combat entre le joueur et un autre joueur
 void Game::ShowBattle()
 {
 	Battle battle;
@@ -196,7 +191,6 @@ void Game::ShowBattle()
 	stateOfGame = ROOMOUT;
 }
 
-// Draws everything that is in the room
 void Game::DrawAllRoom() {
 
 	window.clear();
@@ -207,7 +201,7 @@ void Game::DrawAllRoom() {
 
 }
 
-// Helper for Ash walking in
+//Deplacement de l'autre joueur dans le jeu
 void Game::In() {
 
 	while(ash.m_y < ASH_Y) {
@@ -220,7 +214,7 @@ void Game::In() {
 
 }
 
-// Helper for Ash walking out
+// Deplacement de l'autre joueur hors du jeu
 void Game::Out() {
 
 	while(ash.m_y > 30) {
@@ -230,8 +224,7 @@ void Game::Out() {
 	}
 }
 
-// Moves the legs back and forth of the player. It takes
-// four steps total
+// Movvement des jambes d'avant en arrière, 4 pas au total
 void Game::MovePlayer (Direction direction, Player* movingPlayer) {
 
 	WalkHelper(direction, MOVE_RIGHT_LEG, movingPlayer);
@@ -250,7 +243,7 @@ void Game::MovePlayer (Direction direction, Player* movingPlayer) {
 
 }
 
-// Draws the single step to the window
+// Dessin d'un pas à l'écran
 void Game::WalkHelper (Direction direction, Action action, Player* movingPlayer) {
 
 	WalkHelperII(direction, action, movingPlayer);
@@ -258,7 +251,7 @@ void Game::WalkHelper (Direction direction, Action action, Player* movingPlayer)
 	DrawAllRoom();
 }
 
-// Changes the step to be the correct part of the sprite sheet
+// Chagement de ce pas pour qu'il corresponde sur la Sprite Sheet
 void Game::WalkHelperII(Direction direction, Action action, Player* movingPlayer) {
 
 	if(direction == UP) {
