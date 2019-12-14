@@ -1,10 +1,9 @@
 #pragma once
 #include "Intro.h"
 
-// Represents the intro
 void Intro::show(sf::RenderWindow &window)
 {
-	// Loads
+	// Utilisation de texture pour utiliser Sprite Sheet
 	sf::Texture texture;
 	if(texture.loadFromFile("images/Intro.png") != true) {
 		return;
@@ -19,7 +18,7 @@ void Intro::show(sf::RenderWindow &window)
 	{
 		while(window.pollEvent(currentEvent))
 		{
-			// Close the screen if close is clicked
+			
 			if(currentEvent.type == sf::Event::Closed) { 
 				exit(0);
 			}
