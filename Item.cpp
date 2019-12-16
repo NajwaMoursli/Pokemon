@@ -1,24 +1,25 @@
 #include "Item.h"
 #include "Pokemon.h"
 
-// Represents an item
+// Constructeur par défaut des élements
 Item::Item () {
 
 }
 
+// Définition constructeur
 Item::Item(std::string name, int restoreAmount) {
 
 	m_name = name;
 	m_restoreAmount = restoreAmount;
 
 }
-
+//Destructeur 
 Item::~Item() {
 
 }
 
-// Heals the Pokemon using a potion or a superpotion
-void Item::heal(Pokemon * pokemon) {
+// Soigner Pokemon en utilisant une potion ou une superpotion 
+void Item::heal(Pokemon * pokemon) { //pokemon est un pointeur de la classe Pokemon
 
 	if(m_name == "SuperPotion") {
 		pokemon -> m_health += 50;
@@ -27,7 +28,7 @@ void Item::heal(Pokemon * pokemon) {
 			pokemon -> m_health = 100;
 		}
 
-		assert(pokemon -> m_health <= 100 &&
+		assert(pokemon -> m_health <= 100 &&  //arreter execution si cette condition est respecté 
 			pokemon -> m_health >= 0);
 
 	} else {
