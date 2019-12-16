@@ -1,6 +1,7 @@
 #include "Trainer.h"
 #include <iostream>
 
+//Definition du constructeur avec initialisation de ses attibuts
 Trainer::Trainer() :
 	m_wins(0), 
 	m_currentPokemon(0),
@@ -9,7 +10,7 @@ Trainer::Trainer() :
 	m_allFainted(false)
 {
 }
-
+// de meme pour le constructeur avec argument
 Trainer::Trainer(std::string name) :
 	m_wins(0),
 	m_currentPokemon(0),
@@ -18,19 +19,19 @@ Trainer::Trainer(std::string name) :
 	m_allFainted(false)
 {
 }
-
+//Definition du Destructeur 
 Trainer::~Trainer()
 {
 }
 
-// Draws the trainer to the scene
+//Dessin train sur l'écran 
 void Trainer::Draw(sf::RenderWindow &window) {
 
-	m_pokemon.at(m_currentPokemon) -> Draw(window);
+	m_pokemon.at(m_currentPokemon) -> Draw(window);// dessin sur l'écran du nombre de pokemon en jeu
 
 }
 
-// Check if all the trainer's Pokemon are fainted
+// Verifie si tous les trainer sont out 
 bool Trainer::AllFainted() {
 
 	assert (m_pokemon.size() == 6);
@@ -47,7 +48,7 @@ bool Trainer::AllFainted() {
 
 }
 
-// Display the health of all Pokemon on the CMD
+// Affiche point de vie de tous les Pokemon sur la cmd 
 void Trainer::DisplayHealth() {
 
 	assert (m_pokemon.size() == 6);
