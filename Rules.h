@@ -1,11 +1,11 @@
 #pragma once
 #include "Header.h"
 
-// Rules to to game
+//Règles du jeu
 class Rules {
 
 public:
-	// Shows the rules to game
+	// Affichage des Règles
 	void show(sf::RenderWindow &window);
 
 };
