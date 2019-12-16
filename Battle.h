@@ -19,8 +19,8 @@ private:
 	static BattleState stateOfGame;
 
 	// Entraineurs
-	static Trainer user;
-	static Trainer ash;
+	static Trainer user;// utilisateur
+	static Trainer ash;// l'ordi (le systeme)
 
 	// Pokemon du joueur
 	static Fire uF1;
@@ -32,7 +32,7 @@ private:
 	static Item uI1;
 	static Item uI2;
 
-	// Pokemon des autres joueurs
+	// Pokemon de systeme
 	static Fire aF1;
 	static Fire aF2;
 	static Water aW3;
@@ -58,7 +58,7 @@ private:
 	//Dessine le climat à l'écran
 	static void DrawWeather(sf::RenderWindow &window);
 
-	// Initalisation des images, utilisateur et ash
+	// Initalisation des images, utilisateur et le systeme
 	static void InitalizeLoads();
 	static void InitalizeUser();
 	static void ResetAsh();
