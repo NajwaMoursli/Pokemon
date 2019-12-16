@@ -167,11 +167,11 @@ void Game::ShowRoom()
 
 }
 
-// Displays the Ash walking in cutscene
+// Affiche les scènes coupées de l'autre joueur entrain de marcher
 void Game::ShowRoomIn()
 {
 	In();
-	// Transitions into the room scene
+	// Transition vers ROOM
 	stateOfGame = ROOM;
 
 }
