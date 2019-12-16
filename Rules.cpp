@@ -1,25 +1,25 @@
 #pragma once
 #include "Rules.h"
 
-// Represents the rules
+// Affichage Regles
 void Rules::show(sf::RenderWindow &window)
 {
-	// Loads
+	// Chargement image correspondante
 	sf::Texture texture;
 	if(texture.loadFromFile("images/Rules.png") != true) {
 		return;
 	}
 
-	sf::Sprite sprite(texture);
-	window.draw(sprite);
-	window.display();
+	sf::Sprite sprite(texture);// création sprite à partir de la texture
+	window.draw(sprite);// dessin de la fenetre à partir de la sprite sheet
+	window.display();// affichage de la fenetre 
 
-	sf::Event currentEvent;
+	sf::Event currentEvent;// objet event
 	while(true)
 	{
-		while(window.pollEvent(currentEvent))
+		while(window.pollEvent(currentEvent))// ajout des evenements dans la queue 
 		{
-			// Close the screen if close is clicked
+			
 			if(currentEvent.type == sf::Event::Closed) { 
 				exit(0);
 			}
