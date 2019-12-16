@@ -3,37 +3,36 @@
 #include "Pokemon.h"
 #include "Item.h"
 
-// Forward declerations
+//déclaration anticipées
 class Pokemon;
 class Item;
 
-// Represents a trainer
 class Trainer {
 
 public:
-	bool m_computer;
-	int m_wins;
-	int m_currentPokemon;
-	bool m_allFainted;
-	std::string m_name;
-	std::vector<Pokemon*> m_pokemon;
-	std::vector<Item*> m_item;
+	bool m_computer;// si ash est présent ou pas 
+	int m_wins;// nb victoire 
+	int m_currentPokemon;// nb Pokemon de la partie 
+	bool m_allFainted;// si out ou dans la partie 
+	std::string m_name;// nom du joeur 
+	std::vector<Pokemon*> m_pokemon;// conteneur STL, un vecteur de type ptr de la classe Pokemon
+	std::vector<Item*> m_item;// vecteur de type ptr de la classe Item
 
-	Trainer();
-	Trainer(std::string name);
-	~Trainer();
+	Trainer();// constructeur par défat
+	Trainer(std::string name);// constructeur comme avec argument le nom 
+	~Trainer();// Destructeur 
 
-	// Draw a trainer
+	// Dessin de trainer 
 	void Draw(sf::RenderWindow &window);
 
-	// Checks if all Pokemon are fainted
+	// Vérifie si tous les Pokemons sont out 
 	bool AllFainted();
 
-	// Display the health of all Pokemon
+	// Affiche les points de vie 
 	void DisplayHealth();
 
 private:
-	// User's Pokemon and Items
+	//Pokemon et Item du joueur 
 	static Fire uF1;
 	static Fire uF2;
 	static Water uW3;
@@ -43,7 +42,7 @@ private:
 	static Item uI1;
 	static Item uI2;
 
-	// Ash's Pokemon
+	// Pokemon du ash 
 	static Fire aF1;
 	static Fire aF2;
 	static Water aW3;
