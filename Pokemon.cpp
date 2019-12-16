@@ -4,14 +4,14 @@
 #include <time.h>       /* time */
 
 // The weather is the same for all pokemon.
-	// RAINYDAY gives water types a 50% special attack increase
-	// SUNNYDAY gives fire types a 50% special attack increase
-	// SANDSTORM gives grass types a 50% special attack increase
+	// RAINYDAY donne au type Eau une augmentation de 50% d'attaque spéciale
+	// SUNNYDAY donne au type Feu une augmentation de 50% d'attaque spéciale
+	// SANDSTORM donne au type Plante une augmentation de 50% d'attaque spéciale
 Weather Pokemon::weather;
 
-// Constructor for Pokemon without a name
+// Constructeur pour les Pokemon qui n'ont pas de nom
 Pokemon::Pokemon(Type type) :
-	m_health (100),
+	m_health (100),// Point de vie de départ
 	m_type (type),
 	m_isFainted (false) {
 
@@ -24,7 +24,7 @@ Pokemon::Pokemon(Type type) :
 	}
 }
 
-// Constructor for Pokemon with a name
+// Constructeur pour Pokemon avec un nom
 Pokemon::Pokemon(Type type, std::string name) :
 	m_health (100),
 	m_type(type),
@@ -33,22 +33,23 @@ Pokemon::Pokemon(Type type, std::string name) :
 
 }
 
+//Destructeur
 Pokemon::~Pokemon() {
 
 }
 
-// Normal attack deals 20 damage
+//Attaque normale : perte de 20 points de vie 
 void Pokemon::attackNormal (Pokemon * opponentPokemon) {
 
 	opponentPokemon -> m_health = opponentPokemon -> m_health - 20;
 	opponentPokemon -> changeIfFainted();
 
 	assert(opponentPokemon -> m_health <= 100 &&
-		opponentPokemon -> m_health >= 0);
+		opponentPokemon -> m_health >= 0);// debugge
 
 }
 
-// Heal heals 20 health
+// Ajout de 20 point de vie 
 void Pokemon::heal() {
 
 	m_health += 20;
@@ -62,7 +63,6 @@ void Pokemon::heal() {
 	assert(m_health <= 100 && m_health >= 0);
 }
 
-// Checks if this Pokemon is fainted
 void Pokemon::changeIfFainted() {
 
 	if(this -> m_health <= 0) {
@@ -76,7 +76,7 @@ void Pokemon::changeIfFainted() {
 
 }
 
-// Plays a random move. The computer player uses this.
+//Mouvemants aléatoires dns le jeu utilisé par ash 
 void Pokemon::playRandom(Pokemon * opponentPokemon) {
 
 	srand(time(NULL));
@@ -94,14 +94,14 @@ void Pokemon::playRandom(Pokemon * opponentPokemon) {
 		this -> changeWeather();
 }
 
-// Displays the health of the Pokemon in the CMD
+// Affiche bar de point de vie dans cmd
 void Pokemon::displayHealth() {
 
 	std::cout << m_name << " " << m_health << std::endl;
 
 }
 
-// Fire type
+// Appel constructeur de Pokemon avec le type Feu en argument
 Fire::Fire() 
 	: Pokemon(FIRE)
 {
@@ -118,9 +118,7 @@ Fire::~Fire () {
 
 }
 
-// The special attack deals 50% more if the type of the Pokemon
-// matches the weather and 300% more if the opponent's Pokemon is weak
-// to the Pokemon's type
+// L'éfficacité de l'attaque spéciale augmente de 50% si le type de Pokemon correspond à son climat asscocié et de 300% si l'adversaire est affaiblie
 void Fire::specialAttack(Pokemon * opponentPokemon) {
 
 	int damage = 10;
@@ -144,14 +142,13 @@ void Fire::specialAttack(Pokemon * opponentPokemon) {
 
 }
 
-// Changes the weather
 void Fire::changeWeather() {
 
 	weather = SUNNYDAY;
 
 }
 
-// Water type
+
 Water::Water() 
 	: Pokemon(WATER)
 {
@@ -168,9 +165,6 @@ Water::~Water () {
 
 }
 
-// The special attack deals 50% more if the type of the Pokemon
-// matches the weather and 300% more if the opponent's Pokemon is weak
-// to the Pokemon's type
 void Water::specialAttack(Pokemon * opponentPokemon) {
 
 	int damage = 10;
@@ -194,14 +188,12 @@ void Water::specialAttack(Pokemon * opponentPokemon) {
 
 }
 
-// Changes the weather
 void Water::changeWeather() {
 
 	weather = RAINDANCE;
 
 }
 
-// Grass type
 Grass::Grass() 
 	: Pokemon(GRASS)
 {
@@ -218,9 +210,6 @@ Grass::~Grass () {
 
 }
 
-// The special attack deals 50% more if the type of the Pokemon
-// matches the weather and 300% more if the opponent's Pokemon is weak
-// to the Pokemon's type
 void Grass::specialAttack(Pokemon * opponentPokemon) {
 
 	int damage = 10;
@@ -244,7 +233,6 @@ void Grass::specialAttack(Pokemon * opponentPokemon) {
 
 }
 
-// Changes the weather
 void Grass::changeWeather() {
 
 	weather = SANDSTORM;
