@@ -1,4 +1,4 @@
- auto pointeur sur cordonnées du joueur -5 pour descendre#pragma once
+#pragma once
 #include "Player.h"
 
 //Définition Constructeur
