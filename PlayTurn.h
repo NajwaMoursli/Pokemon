@@ -10,7 +10,7 @@ class Grass;
 class Water;
 class Item;
 
-//Jouer une partie entière par l'utilisateur et l'ordi 
+//Jouer une partie entière par l'utilisateur et ash
 class PlayTurn {
 
 public:
@@ -20,7 +20,7 @@ public:
 	// Jouer une partie par l'utilisateur
 	static BattleState PlayTurnUser(Trainer * user, Trainer * ash, Action action);
 
-	// Jouer une partie par l'ordi
+	// Jouer une partie par as
 	static BattleState PlayTurnAsh(Trainer * user, Trainer * ash);
 
 	// Vérifie si tous les Pokemon sont out 
