@@ -31,10 +31,10 @@ void Game::Start()
 	exclamationMark.SetPosition(ASH_X + 2, ASH_Y - 30);
 
 	user.Load("images/User.png");
-	user.SetPosition(USER_X, USER_Y);
+	user.SetPosition(USER_X, USER_Y);// appel fonction changement position deu personnage de l'utilisateur 
 
 	ash.Load("images/User.png");
-	ash.SetPosition(ASH_X, -50);
+	ash.SetPosition(ASH_X, -50);// position personnage systeme (appel de la fonction changement de posistion)
 
 	stateOfGame = Game::INTRO;
 
@@ -167,7 +167,7 @@ void Game::ShowRoom()
 
 }
 
-// Affiche les scènes coupées de l'autre joueur entrain de marcher
+// Affiche les scènes coupées du joeur du systeme "ash" entrain de marcher
 void Game::ShowRoomIn()
 {
 	In();
@@ -176,14 +176,14 @@ void Game::ShowRoomIn()
 
 }
 
-// Affiche la sortie de l'autre joueur
+// Affiche la sortie de ash
 void Game::ShowRoomOut()
 {
 	Out();
 	stateOfGame = ROOMIN;
 }
 
-//Nouveau combat entre le joueur et un autre joueur
+//Nouveau combat entre le joueur et ash
 void Game::ShowBattle()
 {
 	Battle battle;
@@ -201,7 +201,7 @@ void Game::DrawAllRoom() {
 
 }
 
-//Deplacement de l'autre joueur dans le jeu
+//Deplacement de ash dans le jeu
 void Game::In() {
 
 	while(ash.m_y < ASH_Y) {
@@ -214,7 +214,7 @@ void Game::In() {
 
 }
 
-// Deplacement de l'autre joueur hors du jeu
+// Deplacement de ash hors du jeu
 void Game::Out() {
 
 	while(ash.m_y > 30) {
@@ -246,7 +246,7 @@ void Game::MovePlayer (Direction direction, Player* movingPlayer) {
 // Dessin d'un pas à l'écran
 void Game::WalkHelper (Direction direction, Action action, Player* movingPlayer) {
 
-	WalkHelperII(direction, action, movingPlayer);
+	WalkHelperII(direction, action, movingPlayer);// movingPlayer est un ptr de la classe Player 
 	movingPlayer -> Move(direction);
 	DrawAllRoom();
 }
@@ -258,7 +258,7 @@ void Game::WalkHelperII(Direction direction, Action action, Player* movingPlayer
 
 		if (action == MOVE_LEFT_LEG) {
 
-			movingPlayer -> m_intRect = sf::IntRect(32, 96, 32, 32);
+			movingPlayer -> m_intRect = sf::IntRect(32, 96, 32, 32);//objet du template sf::Rect<t> pour construire un rectangle
 
 		} else if (action == MOVE_RIGHT_LEG) {
 
