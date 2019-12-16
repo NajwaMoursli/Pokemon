@@ -1,7 +1,7 @@
 #pragma once
 #include "Header.h"
 
-// Forward declerations
+//déclarations anticipées : éviter les références croisées
 class Trainer;
 
 class Pokemon;
@@ -10,25 +10,23 @@ class Grass;
 class Water;
 class Item;
 
-// Plays a whole turn in a battle. Both the
-// user and the computer
+//Jouer une partie entière par l'utilisateur et l'ordi 
 class PlayTurn {
 
 public:
-	// Plays the whole turn
+	// Une partie
 	static BattleState PlayTurnWhole(Trainer * user, Trainer * ash, Action action);
 
-	// Plays the user
+	// Jouer une partie par l'utilisateur
 	static BattleState PlayTurnUser(Trainer * user, Trainer * ash, Action action);
 
-	// Plays Ash
+	// Jouer une partie par l'ordi
 	static BattleState PlayTurnAsh(Trainer * user, Trainer * ash);
 
-	// Check if the Pokemon are all fainted
+	// Vérifie si tous les Pokemon sont out 
 	static bool CheckIfAllFainted(Trainer * opponentPlayer);
 
-	// Check if a new Pokemon needs to be switched into
-	// battle, aka the one out has fainted
+	// Vérifie si besoin de changer de Pokemon si celui d'avant et out 
 	static void CheckIfNeedSwitch(Trainer * trainer);
 
 };
