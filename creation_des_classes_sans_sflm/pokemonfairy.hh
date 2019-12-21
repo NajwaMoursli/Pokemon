@@ -1,6 +1,6 @@
-#ifndef DEF_POKEMON_BUG
+#ifndef DEF_POKEMON_FAIRY
 
-#define DEF_POKEMON_BUG
+#define DEF_POKEMON_FAIRY
 
 #include "pokemon.hh"
 
