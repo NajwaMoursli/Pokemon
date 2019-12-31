@@ -3,7 +3,7 @@
 #include <string>
 
 std::vector<std::string> typeNames = {"Normal","Fire","Water","Grass","Electric","Ice","Dragon","Dark","Ghost","Psychic"
-	,"Ground","Rock","Steel","Flying","Bug","Poison"};//typeNames initialisee ici dans le .cc
+	,"Ground","Rock","Steel","Flying","Bug","Poison","Fairy","Fight"};//typeNames initialisee ici dans le .cc
 										   //sinon ca merde => (error : "multiple definitions")
 
 std::ostream &operator<<(std::ostream &flux,Type const& t){
@@ -39,7 +39,11 @@ std::ostream &operator<<(std::ostream &flux,Type const& t){
 		case Ground:
 			flux << "Ground"; break;
 		case Rock:
-			flux << "Rock"; break;			
+			flux << "Rock"; break;
+		case Fairy:
+			flux << "Fairy"; break;
+		case Fight:
+			flux << "Fight"; break;
 	}
     return(flux);
 }
