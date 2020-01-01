@@ -3,68 +3,66 @@
 #include "pokemon.hh"
 #include <iostream>
 #include <string>
-<<<<<<< HEAD
 #include <map>
 #include <vector>
-=======
-#include <cstdlib>
-#include <SFML/Graphics.hpp> 
->>>>>>> 2463ad78a21d1b38168dbe7ad7e97f0ec4df8ed7
 
-using namespace sf;// propre à SFML
 using namespace std;
+// using SpecialDamage::TONNERRE;
+// using SpecialDamage::PUISSANCECACHEEFEU;
+// using SpecialDamageAndChangeStat::BALLOMBRE;
+// using SpecialDamageAndChangeStat::EXPLOFORCE;
 
-<<<<<<< HEAD
 int main(){
-	//PokemonSteel(std::string p_name,int p_hp,int p_attack,int p_specialAttack,int p_defense,
-		//int p_specialDefense,int p_speed,std::vector<Move> p_moves)
-	std::vector<Move> movesetEctoplasma = {ballOmbre,exploForce,tonnerre,puissanceCacheeFeu};
-	PokemonGhost ectoplasma("Ectoplasma",261,149,270,215,205,285,movesetEctoplasma);
-	PokemonGhost ectoplasma2("Ectoplasma",100,10,12,20,40,50,movesetEctoplasma);
+    //PokemonSteel(std::string p_name,int p_hp,int p_attack,int p_specialAttack,int p_defense,
+        //int p_specialDefense,int p_speed,std::vector<Move> p_moves)
+	// SpecialDamage fatalFoudre("Fatal Foudre",Electric,80);
+	// cout << fatalFoudre.toString();
 
-	cout << ectoplasma.toString();
-	cout << ectoplasma2.toString();
+	/*test moves globaux*/
+	// cout << SpecialDamageAndChangeStat::BALLOMBRE.toString();
+	// cout << SpecialDamageAndChangeStat::EXPLOFORCE.toString();
+	// cout << SpecialDamage::TONNERRE.toString();
+	// cout << SpecialDamage::PUISSANCECACHEEFEU.toString();
 
-	cout << ectoplasma.movesetToString();	
+
+
+    PokemonGhost ectoplasma("Ectoplasma",261,149,270,215,205,285,SpecialDamageAndChangeStat::BALLOMBRE,SpecialDamageAndChangeStat::EXPLOFORCE,
+    		SpecialDamage::TONNERRE,SpecialDamage::PUISSANCECACHEEFEU);
+  	PokemonPsychic ectoplasma2("Ectoplasma",261,149,270,236,102,285,SpecialDamageAndChangeStat::BALLOMBRE,SpecialDamageAndChangeStat::EXPLOFORCE,
+    		SpecialDamage::TONNERRE,SpecialDamage::PUISSANCECACHEEFEU);
+
+    cout << ectoplasma.toString();
+    cout << ectoplasma2.toString();
+
+    cout << ectoplasma.movesetToString(); 
+
+    //m_moves[0]->get_name();
+    // cout << ectoplasma.get_moves()[0]->toString();
+    // cout << ectoplasma.get_moves()[1]->toString();
+    // cout << ectoplasma.get_moves()[2]->toString();
+    // cout << ectoplasma.get_moves()[3]->toString();
+
+    cout << ectoplasma.get_hp() << endl;
+    cout << ectoplasma2.get_hp() << endl;
+    cout << ectoplasma2.get_specialDefense() << endl;
+
+    int choix;
+    cout << "Quelle attaque choisissez-vous ? : ";
+    cin >> choix; 
+    cout << endl;
+    cout << ectoplasma.get_name() + " utilise " + ectoplasma.get_moves()[choix-1]->get_name();
+
+    ectoplasma.get_moves()[choix-1]->apply_move(ectoplasma,ectoplasma2);
+    cout << endl;
+    cout << ectoplasma.get_hp() << endl;
+    cout << ectoplasma2.get_hp() << endl;
+    cout << ectoplasma2.get_specialDefense() << endl;
+
+
+
+
+    // SpecialDamage::PUISSANCECACHEEFEU.apply_move(ectoplasma,ectoplasma2);
+
 }
 
-=======
-int main()
-{
-	RenderWindow app(VideoMode(800, 600, 32), "Jeu Pokemon  ! ",, Style::Close | Style::Titlebar);
-	Image image;
-	Sprite sprite;
 
-if (!image.LoadFromFile("image.jpg")) // Si le chargement du fichier a échoué
-{
-    cout<<"Erreur durant le chargement de l'image"<<endl;
-    return EXIT_FAILURE; // On ferme le programme
-}
-else // Si le chargement de l'image a réussi
-{
-    sprite.SetImage(image); 
-}
-
-
-    // Boucle principale
-    while (app.IsOpened())
-    {
-        Event event;
-
-        while (app.GetEvent(event))
-        {
-            if (event.Type == Event::Closed)
-                app.Close();
-        }
-
-        // Remplissage de l'écran (couleur noire par défaut)
-        app.Clear();
-
-        // Affichage de la fenêtre à l'écran
-        app.Display();
-    }
-    return EXIT_SUCCESS
-	//PokemonFire salameche("salameche",10,12,20,35,40,50);
-	//cout << salameche.toString();
-}
->>>>>>> 2463ad78a21d1b38168dbe7ad7e97f0ec4df8ed7

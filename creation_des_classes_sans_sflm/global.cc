@@ -5,14 +5,10 @@
 #include "global.hh"
 
 
-const SpecialDamageAndChangeStat ballOmbre("Ball'Ombre",Ghost,80,SpecialDefense,"decrease",0.25);
-const SpecialDamageAndChangeStat exploForce("Exploforce",Fight,120,SpecialDefense,"decrease",0.25);
-const SpecialDamage tonnerre("Tonnerre",Electric,90);
-const SpecialDamage puissanceCacheeFeu("Puissance Cachee Feu",Fire,60);
-
-
-const std::vector<std::string> typeNames = {"Fight","Normal","Fire","Fight","Water","Grass","Electric","Ice","Dragon","Dark","Ghost","Psychic"
+const std::vector<std::string> typeNames = {"Fight","Normal","Fire","Water","Grass","Electric","Ice","Dragon","Dark","Ghost","Psychic"
 	,"Ground","Rock","Steel","Flying","Bug","Poison"};
+//enum Type {Fight,Normal,Fire,Water,Grass,Electric,Ice,Dragon,Dark,Ghost,Psychic,Ground,Rock,Steel,Flying,Bug,Poison};
+
 const std::vector<std::string> moveCategoriesNames = {"Physical","Special","StatSelf","StatEnemy"};
 const std::vector<std::string> statNames = {"Attack","SpecialAttack","Defense","SpecialDefense","Speed"};
 
@@ -35,9 +31,9 @@ const std::map<Type,std::vector<Type>> weaknessesTable = {
 	{Fight,{Psychic}}
 };
 
-extern const std::map<std::string,Move> movesList = {
+// extern const std::map<std::string,Move> movesList = {
 
-};
+// };
 
 std::ostream &operator<<(std::ostream &flux,Stat const& s){
     switch(s){

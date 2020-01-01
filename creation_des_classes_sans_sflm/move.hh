@@ -29,9 +29,9 @@ public:
 
 	void add_category(MoveCategory mc); //lanceFlamme.add_category(Special)
 	bool is_category(MoveCategory mc);
-	virtual void apply_move(Pokemon& attacker,Pokemon& defender){}
+	virtual void apply_move(Pokemon& attacker,Pokemon& defender) const{std::cout << "apply_move Move";}
 
-	std::string toString();
+	std::string toString() const;
 };
 
 //les attaques qui infligent des degats
@@ -41,7 +41,7 @@ protected:
 public:
 	Damage(std::string p_name,Type p_type,int p_damage):Move(p_name,p_type),m_damage(p_damage){}
 	int get_damage() const{return(m_damage);}
-	virtual void apply_move(Pokemon& attacker,Pokemon& defender){};
+	virtual void apply_move(Pokemon& attacker,Pokemon& defender) const{};
 };
 
 //les attaques qui infligent des degats physiques
@@ -51,17 +51,21 @@ public:
 		this->Move::add_category(Physical);
 	}
 
-	virtual void apply_move(Pokemon& attacker,Pokemon& defender);
+	virtual void apply_move(Pokemon& attacker,Pokemon& defender) const;
 };
 
 //les attaques qui infligent des degats speciaux
 class SpecialDamage : public Damage{
 public:
+	//variables static
+	const static SpecialDamage TONNERRE;
+	const static SpecialDamage PUISSANCECACHEEFEU;
+
 	SpecialDamage(std::string p_name,Type p_type,int p_damage):Move(p_name,p_type),Damage(p_name,p_type,p_damage){
 		this->Move::add_category(Special);
 	}
 
-	virtual void apply_move(Pokemon& attacker,Pokemon& defender);
+	virtual void apply_move(Pokemon& attacker,Pokemon& defender) const;
 };
 
 //les attaques qui changent les stat soit de son pokemon soit du pokemon adverse
@@ -82,7 +86,7 @@ protected:
 
 
 public:
-	ChangeStat(std::string p_name,Type p_type,Stat p_statChanged,std::string p_modif,int p_coeffChange
+	ChangeStat(std::string p_name,Type p_type,Stat p_statChanged,std::string p_modif,float p_coeffChange
 		,bool p_targetIsSelf = false):
 		Move(p_name,p_type),m_statChanged(p_statChanged),m_modif(p_modif),m_coeffChange(p_coeffChange),
 		m_targetIsSelf(p_targetIsSelf){
@@ -99,10 +103,10 @@ public:
 	std::string get_modif() const{return(m_modif);} //soit augmente soit diminue une stat
 	float get_coeffChange() const{return(m_coeffChange);}		
 
-	void decrease(Pokemon& p);
-	void increase(Pokemon& p);
-	virtual void apply_move(Pokemon& attacker,Pokemon& defender);
-	std::string toString();
+	void decrease(Pokemon& p) const;
+	void increase(Pokemon& p) const;
+	virtual void apply_move(Pokemon& attacker,Pokemon& defender) const;
+	std::string toString() const;
 };
 
 //les attaques qui infligent des degats physiques et qui changent les stat
@@ -115,12 +119,16 @@ public:
 		ChangeStat(p_name,p_type,p_statChanged,p_modif,p_coeffChange)
 		{}
 
-	virtual void apply_move(Pokemon& attacker,Pokemon& defender);
+	virtual void apply_move(Pokemon& attacker,Pokemon& defender) const;
 };
 
 //les attaques qui infligent des degats speciaux et qui changent les stat
 class SpecialDamageAndChangeStat : public SpecialDamage, public ChangeStat{
 public:
+	// const static SpecialDamageAndChangeStat* BALLOMBRE;
+	const static SpecialDamageAndChangeStat BALLOMBRE;
+	const static SpecialDamageAndChangeStat EXPLOFORCE;
+	
 	SpecialDamageAndChangeStat(std::string p_name,Type p_type,int p_damage,Stat p_statChanged,
 	std::string p_modif,float p_coeffChange):
 		Move(p_name,p_type),
@@ -128,7 +136,7 @@ public:
 		ChangeStat(p_name,p_type,p_statChanged,p_modif,p_coeffChange)
 		{std::cout << "specialdamageandchangestat constructeur\n";}
 		
-	virtual void apply_move(Pokemon& attacker,Pokemon& defender);
+	virtual void apply_move(Pokemon& attacker,Pokemon& defender) const;
 };
 
 
