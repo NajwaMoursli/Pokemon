@@ -55,33 +55,9 @@ int main(int argc, char ** argv){
         return -1;
 	}
 
-	// map.print_coordinates_vertices();
-
-	//VertexArray en 2D (VertexArray 1D a 1368 elements)
-	// for(int i = 0;i<18;i++){	
-	// 	for(int j = 0;j<76;j++){
-	// 		if((j+i*18)%4==0){
-	// 			std::cout << "x = " << map.get_vertices()[j+i*18].position.x << ", y = " << map.get_vertices()[j+i*18].position.y << std::endl;
-	// 		}
-	// 	}
-	// }
-
-	// for(int i = 0;i<1368;i++){
-	// 	if(i%4==0){
-	// 		std::cout << "x = " << map.get_vertices()[i].position.x << ", y = " << map.get_vertices()[i].position.y << std::endl;
-	// 	}
-	// }
-
-	//exemple point case 0,0
-	// std::cout << "\nx0 = " << map.get_vertices()[0+19*0].position.x << ", y0 = " << map.get_vertices()[19*0+0].position.y << std::endl;
-	// std::cout << "x1 = " << map.get_vertices()[0+19*0+1].position.x << ", y1 = " << map.get_vertices()[19*0+1].position.y << std::endl;
-	// std::cout << "x2 = " << map.get_vertices()[0+19*0+2].position.x << ", y2 = " << map.get_vertices()[19*0+2].position.y << std::endl;
-	// std::cout << "x3 = " << map.get_vertices()[0+19*0+3].position.x << ", y3 = " << map.get_vertices()[19*0+3].position.y << std::endl;
-
-    // const int tilesetWidthPixels = map.getSize().x;
-    // const int tilesetWidthPixels = map.getSize().y;
-
     Character Peter2("sprite.png",0,0,32,32,78,79);
+    // std::cout << "tilesize = " << map.get_tileSize() << std::endl;
+    Peter2.update_index(map);
 
     sf::Texture fogTexture;
 	fogTexture.loadFromFile("fog.png");
@@ -103,6 +79,8 @@ int main(int argc, char ** argv){
 			if (event.type == sf::Event::EventType::Closed){
 		    	renderWindow.close();
 			}
+		    Peter2.update_index(map);
+
 			if (event.type == sf::Event::KeyPressed){
 			    if (event.key.code == sf::Keyboard::S){ //le point (0,0) est en haut a gauche
 			    	Peter2.move_down(clock);
@@ -144,7 +122,6 @@ int main(int argc, char ** argv){
             }
 
 		}
-
 
 
 	renderWindow.clear();

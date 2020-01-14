@@ -21,12 +21,12 @@ public:
 			m_sprite.setTextureRect(m_intRect);
 			m_sprite.setPosition(x,y);
 			m_sprite.setScale(1.5,1.5);
-			// m_indX = x/carte.get_tileSize();
-			// m_indY = y/carte.get_tileSize();
+			m_indX = 0;
+			m_indY = 0;
 	}
 	sf::Sprite get_sprite() const{return(m_sprite);}
 	sf::IntRect get_intRect() const{return(m_intRect);}
-	// void update_index(TileMap carte);
+	void update_index(TileMap& carte);
 	void update_spriteTextureRect(){m_sprite.setTextureRect(m_intRect);}
 	void set_intRect(unsigned int p_left,unsigned int p_top){m_intRect.left = p_left;m_intRect.top = p_top;}
 	void immobile_down(sf::Clock& clock){m_intRect.left = 0;m_intRect.top = 0;}

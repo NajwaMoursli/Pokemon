@@ -94,11 +94,14 @@ void Character::move_left(sf::Clock& clock){
 
 //donne l'indice du tile dans lequel se trouve un point :
 // - int width : largeur 
-// void Character::update_index(TileMap carte){
-// 	m_indX = m_sprite.getPosition().x/carte.get_tileSize();
-// 	m_indY = m_sprite.getPosition().y/carte.get_tileSize();
-// 	std::cout << "indx = " << m_indX << ", indy = " << m_indY << std::endl;
-// }
+void Character::update_index(TileMap& carte){
+	m_indX = m_sprite.getPosition().x/carte.get_tileSize();
+	m_indY = m_sprite.getPosition().y/carte.get_tileSize();
+	// m_indX = 0;
+	// m_indY = 0;
+    std::cout << "tilesize = " << carte.get_tileSize() << std::endl;
+	std::cout << "indx = " << m_indX << ", indy = " << m_indY << std::endl;
+}
 
 bool collision(TileMap map){
 	bool collision = false;
