@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <iostream>
+#include <vector>
 #include <SFML/Graphics.hpp>
 #include "SFML/Audio.hpp"
 #include "tilemap.hh"
@@ -46,29 +47,46 @@ int main(int argc, char ** argv){
 
 
     // on crée la tilemap avec le niveau précédemment défini
-    int tilePixelsW = 36;
-    int tilePixelsH = 36;
-    TileMap map;
-    if (!map.load("tileset_graveyard_tower_interior.png", sf::Vector2u(tilePixelsW,tilePixelsH), level, 19, 18))
+    // int tilePixelsW = 36;
+    // int tilePixelsH = 36;
+
+    TileMap map(19,18,684,648,36);
+    if (!map.load("tileset_graveyard_tower_interior.png", level)){
         return -1;
+	}
+
+	// map.print_coordinates_vertices();
+
+	//VertexArray en 2D (VertexArray 1D a 1368 elements)
+	// for(int i = 0;i<18;i++){	
+	// 	for(int j = 0;j<76;j++){
+	// 		if((j+i*18)%4==0){
+	// 			std::cout << "x = " << map.get_vertices()[j+i*18].position.x << ", y = " << map.get_vertices()[j+i*18].position.y << std::endl;
+	// 		}
+	// 	}
+	// }
+
+	// for(int i = 0;i<1368;i++){
+	// 	if(i%4==0){
+	// 		std::cout << "x = " << map.get_vertices()[i].position.x << ", y = " << map.get_vertices()[i].position.y << std::endl;
+	// 	}
+	// }
+
+	//exemple point case 0,0
+	// std::cout << "\nx0 = " << map.get_vertices()[0+19*0].position.x << ", y0 = " << map.get_vertices()[19*0+0].position.y << std::endl;
+	// std::cout << "x1 = " << map.get_vertices()[0+19*0+1].position.x << ", y1 = " << map.get_vertices()[19*0+1].position.y << std::endl;
+	// std::cout << "x2 = " << map.get_vertices()[0+19*0+2].position.x << ", y2 = " << map.get_vertices()[19*0+2].position.y << std::endl;
+	// std::cout << "x3 = " << map.get_vertices()[0+19*0+3].position.x << ", y3 = " << map.get_vertices()[19*0+3].position.y << std::endl;
+
     // const int tilesetWidthPixels = map.getSize().x;
     // const int tilesetWidthPixels = map.getSize().y;
 
     Character Peter2("sprite.png",0,0,32,32,78,79);
 
-	// sf::Texture texturePeter;
-	// texturePeter.loadFromFile("sprite.png");
-	// sf::IntRect rectSpritePeter(67,33,32,32);
-	// sf::Sprite spritePeter(texturePeter,rectSpritePeter);
-	// cout << "longueur Peter = " << rectSpritePeter.width << std::endl;
-	// cout << "largeur Peter = " << rectSpritePeter.height << std::endl;
-
-	// spritePeter.setPosition(400.f,400.f);
-	// spritePeter.setScale(1.5,1.5);
-
-	// bool obstacle = collision(spritePeter,level,sf::Vector2u(tilePixelsW,tilePixelsH),19);
-	// if(obstacle){std::cout << 1 << std::endl;}
-	// else{std::cout << 0 << std::endl;}
+    sf::Texture fogTexture;
+	fogTexture.loadFromFile("fog.png");
+	// sf::IntRect rectSpritePeter(65,1,32,32);
+	sf::Sprite fog(fogTexture);
 
 /*music*/
 	sf::Music music;
@@ -122,111 +140,20 @@ int main(int argc, char ** argv){
 				 Peter2.update_spriteTextureRect();
 				 clock.restart();
 				}
+				// std::cout << coordinates_to_index(Peter2.get_sprite().) << std::endl;
             }
 
 		}
 
+
+
 	renderWindow.clear();
 	renderWindow.draw(map);
-	// renderWindow.draw(spritePeter);
-	// std::cout << "draw end\n";
-	std::cout << Peter2.get_intRect().left << ", " << Peter2.get_intRect().top << std::endl;
-
 	renderWindow.draw(Peter2.m_sprite);
-	// std::cout << "draw end\n";
-
+	// renderWindow.draw(fog);
 	renderWindow.display();
 	}
 }	
-
-
-
-// void move_down(sf::Clock& clock,sf::Sprite& sprite, sf::IntRect& rectSprite){
-// 	if(clock.getElapsedTime().asSeconds() > 0.13){ //pour ralentir l'animation, sinon elle est trop rapide
-// 		std::cout << rectSprite.left << ", " << rectSprite.top << std::endl; //immobile bas : 67 33
-// 		if((rectSprite.left == 67 and rectSprite.top == 33)or(rectSprite.left == 68 and rectSprite.top == 97)){
-// 	    	rectSprite.left = 66;
-// 			rectSprite.top = 64;
-// 		}
-// 		else if(rectSprite.left == 66 and rectSprite.top == 64){
-// 			rectSprite.left = 68;
-// 			rectSprite.top = 97;
-// 		}
-// 		else{ //si le sprite dans le mauvais sens, on le remet dans le bon sens : le sens du deplacement
-// 			rectSprite.left = 67;
-// 			rectSprite.top = 33;
-// 		}
-// 	sprite.setTextureRect(rectSprite);
-// 	sprite.move(0,14);
-// 	clock.restart();
-// 	}
-// }
-
-// void move_up(sf::Clock& clock,sf::Sprite& sprite, sf::IntRect& rectSprite){
-// 	if(clock.getElapsedTime().asSeconds() > 0.13){ //pour ralentir l'animation, sinon elle est trop rapide
-// 		std::cout << rectSprite.left << ", " << rectSprite.top << std::endl;
-// 		if((rectSprite.left == 0 and rectSprite.top == 0)or(rectSprite.left == 69 and rectSprite.top == 0)){
-// 	    	rectSprite.left = 36;
-// 			rectSprite.top = 96;
-// 		}
-// 		else if(rectSprite.left == 36 and rectSprite.top == 96){
-// 			rectSprite.left = 69;
-// 			rectSprite.top = 0;
-// 		}
-// 		else{
-// 			rectSprite.left = 0;
-// 			rectSprite.top = 0;
-// 		}
-// 	sprite.setTextureRect(rectSprite);
-// 	sprite.move(0,-14);
-// 	clock.restart();
-// 	}
-// }
-
-//  //bas : 67 33 //haut : 0 0 //right : 35 0 //left 5 65
-// void move_right(sf::Clock& clock,sf::Sprite& sprite, sf::IntRect& rectSprite){
-// 	if(clock.getElapsedTime().asSeconds() > 0.13){ //pour ralentir l'animation, sinon elle est trop rapide
-// 		std::cout << rectSprite.left << ", " << rectSprite.top << std::endl;
-// 		if((rectSprite.left == 35 and rectSprite.top == 0)or(rectSprite.left == 35 and rectSprite.top == 65)){
-// 	    	rectSprite.left = 34;
-// 			rectSprite.top = 33;
-// 		}
-// 		else if(rectSprite.left == 34 and rectSprite.top == 33){
-// 			rectSprite.left = 35;
-// 			rectSprite.top = 65;
-// 		}
-// 		else{
-// 			rectSprite.left = 35;
-// 			rectSprite.top = 0;
-// 		}
-// 	sprite.setTextureRect(rectSprite);
-// 	sprite.move(14,0);
-// 	clock.restart();
-// 	}
-// }
-
-//  //bas : 67 33 //haut : 0 0 //right : 35 0 //left 5 65
-// void move_left(sf::Clock& clock,sf::Sprite& sprite, sf::IntRect& rectSprite){
-// 	if(clock.getElapsedTime().asSeconds() > 0.13){ //pour ralentir l'animation, sinon elle est trop rapide
-// 		std::cout << rectSprite.left << ", " << rectSprite.top << std::endl;
-// 		if((rectSprite.left == 5 and rectSprite.top == 65)or(rectSprite.left == 4 and rectSprite.top == 96)){
-// 	    	rectSprite.left = 4;
-// 			rectSprite.top = 34;
-// 		}
-// 		else if(rectSprite.left == 4 and rectSprite.top == 34){
-// 			rectSprite.left = 4;
-// 			rectSprite.top = 96;
-// 		}
-// 		else{
-// 			rectSprite.left = 5;
-// 			rectSprite.top = 65;
-// 		}
-// 	sprite.setTextureRect(rectSprite);
-// 	sprite.move(-14,0);
-// 	clock.restart();
-// 	}
-// }
-
 
 bool tile_is_obstacle(unsigned int i,unsigned int j,const int* tiles,unsigned int width){
 	if(tiles[i+j*width] == 3){
@@ -244,6 +171,19 @@ bool collision(sf::Sprite sprite,const int* tiles,sf::Vector2u tileSize,unsigned
 	std::cout << "i = " << i << ", j = " << j << std::endl;
 	return(tile_is_obstacle(i,j,tiles,width));
 }
+
+//donne l'indice du tile dans lequel se trouve un point :
+// - int x, int y : coordonnees d'un point
+// - int width : largeur 
+// std::vector<unsigned int> coordinates_to_index(unsigned int x,unsigned int y,TileMap map){
+// 	unsigned int indX = x/map.get_tileSize();
+// 	unsigned int indY = y/map.get_tileSize();
+// 	std::vector<unsigned int> ind;
+// 	ind.push_back(indX);
+// 	ind.push_back(indY);
+// 	std::cout << "indx = " << indX << ", indy = " << indY << std::endl;
+// 	return(ind);
+// }
 
 // bool obstacle(Sprite sprite){
 

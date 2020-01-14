@@ -2,6 +2,7 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include "character.hh"
+#include "tilemap.hh"
 
 
 void Character::move_down(sf::Clock& clock){
@@ -91,3 +92,16 @@ void Character::move_left(sf::Clock& clock){
 	}
 }
 
+//donne l'indice du tile dans lequel se trouve un point :
+// - int width : largeur 
+// void Character::update_index(TileMap carte){
+// 	m_indX = m_sprite.getPosition().x/carte.get_tileSize();
+// 	m_indY = m_sprite.getPosition().y/carte.get_tileSize();
+// 	std::cout << "indx = " << m_indX << ", indy = " << m_indY << std::endl;
+// }
+
+bool collision(TileMap map){
+	bool collision = false;
+
+	return(collision);
+}

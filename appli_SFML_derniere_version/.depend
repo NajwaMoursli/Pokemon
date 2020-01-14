@@ -1,2 +1,2 @@
 main.o: main.cc tilemap.hh character.hh
-character.o: character.cc character.hh
+character.o: character.cc character.hh tilemap.hh

@@ -14,7 +14,7 @@ public:
 
         // on remplit le tableau de vertex, avec un quad par tuile
         for (unsigned int i = 0; i < width; ++i)
-            for (unsigned int j = 0; j < height; ++j)
+            for (int j = 0; j < height; ++j)
             {
                 // on récupère le numéro de tuile courant
                 int tileNumber = tiles[i + j * width];
@@ -40,6 +40,10 @@ public:
             }
 
         return true;
+    }
+
+    void print_coordinates_vertices(){
+
     }
 
 private:
