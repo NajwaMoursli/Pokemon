@@ -3,6 +3,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include "SFML/Audio.hpp"
+#include "global2.hh"
 #include "tilemap.hh"
 #include "character.hh"
 
@@ -30,12 +31,12 @@ int main(int argc, char ** argv){
         3, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 3,
         24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
         24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+        24, 24, 24, 24, 23, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
         24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
         24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+        24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 23, 24, 24, 24, 24, 24, 24, 24, 24,
         24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
-        24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
-        24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
-        24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+        24, 24, 24, 24, 24, 24, 24, 23, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
         24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
         24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
         3, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 3,
@@ -45,6 +46,28 @@ int main(int argc, char ** argv){
         3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
     };
 
+    const int level2[] =
+    {
+        0, 1, 2, 3, 4, 5, 6, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+        3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+        3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+        3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+        3, 3, 3, 3, 3, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+        3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+        3, 3, 3, 3, 23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+        3, 3, 3, 3, 3, 3, 3, 15, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+        3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+        3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 23, 3, 3, 3, 3, 3, 3, 3, 3,
+        3, 3, 3, 3, 3, 3, 3, 15, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+        3, 3, 3, 3, 3, 3, 3, 23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+        3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+        3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+        3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+        3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+        3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+         3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+        3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+    };
 
     // on crée la tilemap avec le niveau précédemment défini
     // int tilePixelsW = 36;
@@ -54,9 +77,12 @@ int main(int argc, char ** argv){
     if (!map.load("tileset_graveyard_tower_interior.png", level)){
         return -1;
 	}
+	TileMap mapLevel2(19,18,684,648,36);
+    if (!mapLevel2.load("tileset_graveyard_tower_interior.png", level2)){
+        return -1;
+	}
 
     Character Peter2("sprite.png",0,0,32,32,78,79);
-    // std::cout << "tilesize = " << map.get_tileSize() << std::endl;
     Peter2.update_index(map);
 
     sf::Texture fogTexture;
@@ -81,18 +107,25 @@ int main(int argc, char ** argv){
 			}
 		    Peter2.update_index(map);
 
+		    bool collision = false;
 			if (event.type == sf::Event::KeyPressed){
 			    if (event.key.code == sf::Keyboard::S){ //le point (0,0) est en haut a gauche
-			    	Peter2.move_down(clock);
+			    	collision = Peter2.collision(DOWN, map, level, level2);
+			    	std::cout << "collisionDOWN = " << collision << std::endl;
+			    	Peter2.move_down(collision, clock);
 			    }
 			    if (event.key.code == sf::Keyboard::Z){
-			    	Peter2.move_up(clock);
+			    	collision = Peter2.collision(UP, map, level, level2);
+			    	std::cout << "collisionUP = " << collision << std::endl;
+			    	Peter2.move_up(collision, clock);
 			    }
 			    if (event.key.code == sf::Keyboard::D){
-			    	Peter2.move_right(clock);
+			    	collision = Peter2.collision(RIGHT, map, level, level2);
+			    	Peter2.move_right(collision, clock);
 			    }
 			    if (event.key.code == sf::Keyboard::Q){
-			    	Peter2.move_left(clock);
+			    	collision = Peter2.collision(LEFT, map, level, level2);			    	
+			    	Peter2.move_left(collision, clock);
 			    }
 			}
 
@@ -126,6 +159,7 @@ int main(int argc, char ** argv){
 
 	renderWindow.clear();
 	renderWindow.draw(map);
+	renderWindow.draw(mapLevel2);	
 	renderWindow.draw(Peter2.m_sprite);
 	// renderWindow.draw(fog);
 	renderWindow.display();
@@ -148,20 +182,3 @@ bool collision(sf::Sprite sprite,const int* tiles,sf::Vector2u tileSize,unsigned
 	std::cout << "i = " << i << ", j = " << j << std::endl;
 	return(tile_is_obstacle(i,j,tiles,width));
 }
-
-//donne l'indice du tile dans lequel se trouve un point :
-// - int x, int y : coordonnees d'un point
-// - int width : largeur 
-// std::vector<unsigned int> coordinates_to_index(unsigned int x,unsigned int y,TileMap map){
-// 	unsigned int indX = x/map.get_tileSize();
-// 	unsigned int indY = y/map.get_tileSize();
-// 	std::vector<unsigned int> ind;
-// 	ind.push_back(indX);
-// 	ind.push_back(indY);
-// 	std::cout << "indx = " << indX << ", indy = " << indY << std::endl;
-// 	return(ind);
-// }
-
-// bool obstacle(Sprite sprite){
-
-// }

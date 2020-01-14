@@ -16,6 +16,7 @@ public:
 
     sf::VertexArray** get_vertices() const{return(m_vertices);}
     int get_tileSize() const{return(m_tileSize);}
+    int get_xTiles() const{return(m_xTiles);}
 
     ~TileMap(){
         for(int i = 0;i<m_xTiles;i++){
@@ -102,7 +103,7 @@ private:
 
     sf::VertexArray** m_vertices;
     sf::Texture m_tileset;
-    int m_tileSize;
+    int m_tileSize; //taille d'un tile en pixels
     int m_xTiles;
     int m_yTiles;  
     int m_xPixels;

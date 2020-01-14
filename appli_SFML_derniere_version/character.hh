@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <SFML/Graphics.hpp>
+#include "global2.hh"
 #include "tilemap.hh"
 
 
@@ -29,11 +30,12 @@ public:
 	void update_index(TileMap& carte);
 	void update_spriteTextureRect(){m_sprite.setTextureRect(m_intRect);}
 	void set_intRect(unsigned int p_left,unsigned int p_top){m_intRect.left = p_left;m_intRect.top = p_top;}
-	void immobile_down(sf::Clock& clock){m_intRect.left = 0;m_intRect.top = 0;}
-	void move_down(sf::Clock& clock);
-	void move_up(sf::Clock& clock);
-	void move_right(sf::Clock& clock);
-	void move_left(sf::Clock& clock);
+	void immobile_down(bool collision, sf::Clock& clock){m_intRect.left = 0;m_intRect.top = 0;}
+	void move_down(bool collision, sf::Clock& clock);
+	void move_up(bool collision, sf::Clock& clock);
+	void move_right(bool collision, sf::Clock& clock);
+	void move_left(bool collision, sf::Clock& clock);
+	bool collision(Direction direction, TileMap& carte, const int* tiles,const int* tiles2);
 };
 
 
