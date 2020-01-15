@@ -16,6 +16,8 @@ enum Type {Fight,Normal,Fire,Water,Grass,Electric,Ice,Dragon,Dark,Ghost,Psychic,
 extern const std::vector<std::string> typeNames;
 extern const std::map<Type,std::vector<Type>> weaknessesTable;
 
+enum BattleState { PLAY, LOST, WON }; // ajout etat après combat
+
 std::ostream &operator<<(std::ostream &flux,Type const& t);
 
 #endif
