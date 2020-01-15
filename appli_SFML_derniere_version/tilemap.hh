@@ -3,6 +3,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
+
 class TileMap : public sf::Drawable, public sf::Transformable
 {
 public:
@@ -26,54 +27,45 @@ public:
         std::cout << "TileMap a ete detruit.\n";
     }
 
-    //tileset : nom du fichier a importer
-    //tiles : tableau avec des int representant la map
+    //importe l'image du tileset
+    //- tileset : nom du fichier a importer
+    //- tiles : tableau avec des int representant la map
     bool load(const std::string& tileset, const int* tiles)
     {
         // on charge la texture du tileset
         if (!m_tileset.loadFromFile(tileset))
             return false;
 
-        // on remplit le tableau de vertex, avec un quad par tuile
+        // on remplit le tableau de vertex, avec un quad par case
         for(int j = 0; j < m_yTiles; ++j)
             for(int i = 0; i < m_xTiles; ++i)
             {
                 m_vertices[i][j].setPrimitiveType(sf::Quads);
                 m_vertices[i][j].resize(4);
 
-                // on récupère le numéro de tuile courant
+                // on récupère le numéro de la case (ce sont les numeros affichees dans la grille Tilemap map)
                 int tileNumber = tiles[i + j * m_xTiles];
 
-                // on en déduit sa position dans la texture du tileset
+                // on en déduit sa position dans l'image du tileset
                 int tu = tileNumber % (m_tileset.getSize().x / m_tileSize);
                 int tv = tileNumber / (m_tileset.getSize().x / m_tileSize);
 
-                // on définit ses quatre coins
+                // on définit les coordonnées de ses quatre points sur la map (l'image affiche dans le jeu)
                 m_vertices[i][j][0].position = sf::Vector2f(i * m_tileSize, j * m_tileSize); 
                 m_vertices[i][j][1].position = sf::Vector2f((i + 1) * m_tileSize, j * m_tileSize);
                 m_vertices[i][j][2].position = sf::Vector2f((i + 1) * m_tileSize, (j + 1) * m_tileSize);
                 m_vertices[i][j][3].position = sf::Vector2f(i * m_tileSize, (j + 1) * m_tileSize);
 
-                // if(i == 0 and j < 4){
-                // std::cout << "i = " << i << ", j = " << j << m_xTiles << std::endl;
-                // std::cout << "x = " << m_vertices[i][j][0].position.x << ", y0 = " << m_vertices[i][j][0].position.y << std::endl;
-                // std::cout << "x = " << m_vertices[i][j][1].position.x << ", y0 = " << m_vertices[i][j][1].position.y << std::endl;
-                // std::cout << "x = " << m_vertices[i][j][2].position.x << ", y0 = " << m_vertices[i][j][2].position.y << std::endl;
-                // std::cout << "x = " << m_vertices[i][j][3].position.x << ", y0 = " << m_vertices[i][j][3].position.y << std::endl;
-                // }
-                // std::cout << "i = " << i << ", j = " << j << "= " << (i + j * width) * 4 << std::endl;
-
-
-                // on définit ses quatre coordonnées de texture
+                // on définit les coordonnées de ses quatre points dans l'image du tileset
                 m_vertices[i][j][0].texCoords = sf::Vector2f(tu * m_tileSize, tv * m_tileSize);
                 m_vertices[i][j][1].texCoords = sf::Vector2f((tu + 1) * m_tileSize, tv * m_tileSize);
                 m_vertices[i][j][2].texCoords = sf::Vector2f((tu + 1) * m_tileSize, (tv + 1) * m_tileSize);
                 m_vertices[i][j][3].texCoords = sf::Vector2f(tu * m_tileSize, (tv + 1) * m_tileSize);
             }
-
         return true;
     }
 
+    // affiche pour chaque case (Vertex) son point en haut a gauche
     void print_coordinates_vertices(){
         for(int j = 0; j < m_yTiles; ++j){
             for(int i = 0; i < m_xTiles; ++i){
@@ -83,7 +75,15 @@ public:
     }
 
 private:
+    sf::VertexArray** m_vertices;  // tableau de cases (ensemble de quatre points)
+    sf::Texture m_tileset; // l'image du tileset
+    int m_tileSize; // taille d'un tile (d'une case) en pixels
+    int m_xTiles; // largeur du tileset en tiles (en cases)
+    int m_yTiles; // hauteur du tileset en tiles (en cases)
+    int m_xPixels; // largeur du tileset en pixels
+    int m_yPixels; // hauteur du tileset en pixels
 
+    //dessine, affiche la map sur l'ecran 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
         // on applique la transformation
@@ -100,14 +100,6 @@ private:
             }
         }
     }
-
-    sf::VertexArray** m_vertices;
-    sf::Texture m_tileset;
-    int m_tileSize; //taille d'un tile en pixels
-    int m_xTiles;
-    int m_yTiles;  
-    int m_xPixels;
-    int m_yPixels;
 };
 
 #endif

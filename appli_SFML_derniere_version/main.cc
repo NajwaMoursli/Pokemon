@@ -10,19 +10,13 @@
 // using namespace sf;
 using namespace std;
 
-void move_down(sf::Clock& clock,sf::Sprite& sprite, sf::IntRect& rectSprite);
-void move_up(sf::Clock& clock,sf::Sprite& sprite, sf::IntRect& rectSprite);
-void move_right(sf::Clock& clock,sf::Sprite& sprite, sf::IntRect& rectSprite);
-void move_left(sf::Clock& clock,sf::Sprite& sprite, sf::IntRect& rectSprite);
-bool tile_is_obstacle(unsigned int i,unsigned int j,const int* tiles,unsigned int width);
-bool collision(sf::Sprite sprite,const int* tiles,sf::Vector2u tileSize,unsigned int width);
-
+// bool tile_is_obstacle(unsigned int i,unsigned int j,const int* tiles,unsigned int width);
 
 int main(int argc, char ** argv){
 	sf::RenderWindow renderWindow(sf::VideoMode(304*2.25, 288*2.25), "Demo Game");
 
-/*map*/
-	// on définit le niveau à l'aide de numéro de tuiles
+/*creation de la map*/
+	// creation de la grille de la couche 1 (le sol)
     const int level[] =
     {
         3, 3, 3, 3, 3, 3, 24, 24, 24, 24, 24, 24, 24, 3, 3, 3, 3, 3, 3,
@@ -46,6 +40,7 @@ int main(int argc, char ** argv){
         3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
     };
 
+    // creation de la grille de la couche 2 (les objets, obstacles, exemple : murs, plots ...)
     const int level2[] =
     {
         0, 1, 2, 3, 4, 5, 6, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
@@ -70,9 +65,6 @@ int main(int argc, char ** argv){
     };
 
     // on crée la tilemap avec le niveau précédemment défini
-    // int tilePixelsW = 36;
-    // int tilePixelsH = 36;
-
     TileMap map(19,18,684,648,36);
     if (!map.load("tileset_graveyard_tower_interior.png", level)){
         return -1;
@@ -82,22 +74,25 @@ int main(int argc, char ** argv){
         return -1;
 	}
 
+
+/*creation du personnage du joueur*/
     Character Peter2("sprite.png",0,0,32,32,78,79);
     Peter2.update_index(map);
+	std::cout << "x = " << Peter2.m_sprite.getPosition().x << " , y = " << Peter2.m_sprite.getPosition().y << std::endl;
 
+/*creation de la fumee*/
     sf::Texture fogTexture;
 	fogTexture.loadFromFile("fog.png");
-	// sf::IntRect rectSpritePeter(65,1,32,32);
 	sf::Sprite fog(fogTexture);
 
-/*music*/
+/*creation de la musique*/
 	sf::Music music;
 	if (!music.openFromFile("pokemon_tower_theme.wav"))
 	    return -1; // erreur
 	music.setVolume(50);
 	music.play();
 
-/*evenements*/
+/*gestion des evenements*/
 	sf::Clock clock;
 	sf::Event event;
 	while (renderWindow.isOpen()){
@@ -107,6 +102,7 @@ int main(int argc, char ** argv){
 			}
 		    Peter2.update_index(map);
 
+		    //evenements lies au deplacement du joueur
 		    bool collision = false;
 			if (event.type == sf::Event::KeyPressed){
 			    if (event.key.code == sf::Keyboard::S){ //le point (0,0) est en haut a gauche
@@ -129,7 +125,7 @@ int main(int argc, char ** argv){
 			    }
 			}
 
-			if (event.type == sf::Event::KeyReleased){ //sert a remettre le sprite en mode immobile
+			if(event.type == sf::Event::KeyReleased){ //sert a remettre le sprite en mode immobile
 				if(event.key.code == sf::Keyboard::S){
 				 Peter2.set_intRect(67,33);
 		 		 Peter2.update_spriteTextureRect();
@@ -151,12 +147,11 @@ int main(int argc, char ** argv){
 				 Peter2.update_spriteTextureRect();
 				 clock.restart();
 				}
-				// std::cout << coordinates_to_index(Peter2.get_sprite().) << std::endl;
             }
 
 		}
 
-
+	//mise a jour de l'affichage du jeu
 	renderWindow.clear();
 	renderWindow.draw(map);
 	renderWindow.draw(mapLevel2);	
@@ -173,12 +168,4 @@ bool tile_is_obstacle(unsigned int i,unsigned int j,const int* tiles,unsigned in
 	else{
 		return(false);
 	}
-}
-
-//width : largeur de la map en tiles
-bool collision(sf::Sprite sprite,const int* tiles,sf::Vector2u tileSize,unsigned int width){
-	int i = sprite.getPosition().x/tileSize.x;
-	int j = sprite.getPosition().y/tileSize.y;
-	std::cout << "i = " << i << ", j = " << j << std::endl;
-	return(tile_is_obstacle(i,j,tiles,width));
 }

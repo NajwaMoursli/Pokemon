@@ -9,10 +9,10 @@
 
 class Character{
 private:
-	sf::Texture m_texture;
-	sf::IntRect m_intRect;
-	int m_indX;
-	int m_indY;
+	sf::Texture m_texture; //images du perso
+	sf::IntRect m_intRect; //image selectionnee dans le sprite (le sprite.png)
+	int m_indX; //indice en abscisses de la case de la map dans laquelle se trouve le perso
+	int m_indY; //indice en ordonnees de la case de la map dans laquelle se trouve le perso
 public:
 	sf::Sprite m_sprite;
 	Character(std::string filename, unsigned int x_inTileset, unsigned int y_inTileset, unsigned int w, 
@@ -21,7 +21,7 @@ public:
 			m_sprite.setTexture(m_texture);
 			m_sprite.setTextureRect(m_intRect);
 			m_sprite.setPosition(x,y);
-			m_sprite.setScale(1.5,1.5);
+			m_sprite.setScale(1.5,1.5); //on agrandit l'image du perso car trop petite
 			m_indX = 0;
 			m_indY = 0;
 	}
@@ -30,7 +30,6 @@ public:
 	void update_index(TileMap& carte);
 	void update_spriteTextureRect(){m_sprite.setTextureRect(m_intRect);}
 	void set_intRect(unsigned int p_left,unsigned int p_top){m_intRect.left = p_left;m_intRect.top = p_top;}
-	void immobile_down(bool collision, sf::Clock& clock){m_intRect.left = 0;m_intRect.top = 0;}
 	void move_down(bool collision, sf::Clock& clock);
 	void move_up(bool collision, sf::Clock& clock);
 	void move_right(bool collision, sf::Clock& clock);

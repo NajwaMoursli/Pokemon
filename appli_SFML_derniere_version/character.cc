@@ -5,6 +5,7 @@
 #include "character.hh"
 #include "tilemap.hh"
 
+//anime et deplace le perso s'il n'y a pas d'obstacleL
 void Character::move_down(bool collision, sf::Clock& clock){
 	if(clock.getElapsedTime().asSeconds() > 0.13){ //pour ralentir l'animation, sinon elle est trop rapide
 		// std::cout << m_intRect.left << ", " << m_intRect.top << std::endl; //immobile bas : 67 33
@@ -28,6 +29,7 @@ void Character::move_down(bool collision, sf::Clock& clock){
 	}
 }
 
+//anime et deplace le perso s'il n'y a pas d'obstacle
 void Character::move_up(bool collision, sf::Clock& clock){
 	if(clock.getElapsedTime().asSeconds() > 0.13){ //pour ralentir l'animation, sinon elle est trop rapide
 		// std::cout << m_intRect.left << ", " << m_intRect.top << std::endl;
@@ -52,7 +54,7 @@ void Character::move_up(bool collision, sf::Clock& clock){
 	}
 }
 
- //bas : 67 33 //haut : 0 0 //right : 35 0 //left 5 65
+//anime et deplace le perso s'il n'y a pas d'obstacle
 void Character::move_right(bool collision, sf::Clock& clock){
 	if(clock.getElapsedTime().asSeconds() > 0.13){ //pour ralentir l'animation, sinon elle est trop rapide
 		// std::cout << m_intRect.left << ", " << m_intRect.top << std::endl;
@@ -76,7 +78,7 @@ void Character::move_right(bool collision, sf::Clock& clock){
 	}
 }
 
- //bas : 67 33 //haut : 0 0 //right : 35 0 //left 5 65
+//anime et deplace le perso s'il n'y a pas d'obstacle
 void Character::move_left(bool collision, sf::Clock& clock){
 	if(clock.getElapsedTime().asSeconds() > 0.13){ //pour ralentir l'animation, sinon elle est trop rapide
 		// std::cout << m_intRect.left << ", " << m_intRect.top << std::endl;
@@ -100,8 +102,7 @@ void Character::move_left(bool collision, sf::Clock& clock){
 	}
 }
 
-//donne l'indice du tile dans lequel se trouve un point :
-// - int width : largeur 
+//donne l'indice (iX,iY) de la case ou tile dans laquelle se trouve un point :
 void Character::update_index(TileMap& carte){
 	m_indX = m_sprite.getPosition().x/carte.get_tileSize();
 	m_indY = m_sprite.getPosition().y/carte.get_tileSize();
@@ -109,6 +110,7 @@ void Character::update_index(TileMap& carte){
 	// std::cout << "indx = " << m_indX << ", indy = " << m_indY << std::endl;
 }
 
+// detecte une collision entre le perso et le decor
 //	- direction : direction du deplacement du perso (varie en fonction de la touche appuyee par le joueur)
 //	- carte : carte tracee a l'affichage
 //	- tiles : carte avec des numeros qui representent les tiles et leur texture (sol, vide, ciel, carrelage...)
@@ -145,3 +147,8 @@ bool Character::collision(Direction direction, TileMap& carte, const int* tiles,
 		// m_sprite.move(14,0);
 
 		// m_sprite.move(-14,0);
+
+
+
+
+ //dans le sprite du perso (sprite.png) : bas : 67 33 //haut : 0 0 //right : 35 0 //left 5 65
