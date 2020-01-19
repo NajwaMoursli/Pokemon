@@ -4,6 +4,7 @@
 #include "global2.hh"
 #include "character.hh"
 #include "tilemap.hh"
+#include <vector>
 
 //anime et deplace le perso s'il n'y a pas d'obstacleL
 void Character::move_down(bool collision, sf::Clock& clock){
@@ -104,10 +105,42 @@ void Character::move_left(bool collision, sf::Clock& clock){
 
 //donne l'indice (iX,iY) de la case ou tile dans laquelle se trouve un point :
 void Character::update_index(TileMap& carte){
-	m_indX = m_sprite.getPosition().x/carte.get_tileSize();
-	m_indY = m_sprite.getPosition().y/carte.get_tileSize();
+	m_ind[0].x = m_sprite.getPosition().x/carte.get_tileSize();
+	m_ind[0].y = m_sprite.getPosition().y/carte.get_tileSize();
+	m_ind[1].x = (m_sprite.getPosition().x + 36)/carte.get_tileSize();
+	m_ind[1].y = m_sprite.getPosition().y/carte.get_tileSize();
+	m_ind[2].x = (m_sprite.getPosition().x + 36)/carte.get_tileSize();
+	m_ind[2].y = (m_sprite.getPosition().y + 36)/carte.get_tileSize();
+	m_ind[3].x = m_sprite.getPosition().x/carte.get_tileSize();
+	m_ind[3].y = (m_sprite.getPosition().y + 36)/carte.get_tileSize();
  //    std::cout << "tilesize = " << carte.get_tileSize() << std::endl;
 	// std::cout << "indx = " << m_indX << ", indy = " << m_indY << std::endl;
+}
+
+std::vector<sf::Vector2<int>> Character::get_indEdges(TileMap& carte, int x, int y){
+	std::vector<sf::Vector2<int>> indEdges = {{0,0},{0,0},{0,0},{0,0}};
+	indEdges[0].x = x/carte.get_tileSize();
+	indEdges[0].y = y/carte.get_tileSize();
+	indEdges[1].x = (x + 36)/carte.get_tileSize();
+	indEdges[1].y = y/carte.get_tileSize();
+	indEdges[2].x = (x + 36)/carte.get_tileSize();
+	indEdges[2].y = (y + 36)/carte.get_tileSize();
+	indEdges[3].x = x/carte.get_tileSize();
+	indEdges[3].y = (y + 36)/carte.get_tileSize();
+	return(indEdges);
+}
+
+bool Character::inObstacleTile(TileMap& carte, const int* tiles,const int* tiles2, std::vector<sf::Vector2<int>> indEdges, int& intersectX, int& intersectY){
+	bool inObstacle = false;
+	if(tiles[indEdges[0].x + indEdges[0].y*carte.get_xTiles()] == 3){intersectX = indEdges[0].x;intersectY = indEdges[0].y;inObstacle = true;}
+	else if(tiles[indEdges[1].x + indEdges[1].y*carte.get_xTiles()] == 3){intersectX = indEdges[1].x;intersectY = indEdges[1].y;inObstacle = true;}
+	else if(tiles[indEdges[2].x + indEdges[2].y*carte.get_xTiles()] == 3){intersectX = indEdges[2].x;intersectY = indEdges[2].y;inObstacle = true;}
+	else if(tiles[indEdges[3].x + indEdges[3].y*carte.get_xTiles()] == 3){intersectX = indEdges[3].x;intersectY = indEdges[3].y;inObstacle = true;}
+	else if(tiles2[indEdges[0].x + indEdges[0].y*carte.get_xTiles()] == 15){intersectX = indEdges[0].x;intersectY = indEdges[0].y;inObstacle = true;}
+	else if(tiles2[indEdges[1].x + indEdges[1].y*carte.get_xTiles()] == 15){intersectX = indEdges[1].x;intersectY = indEdges[1].y;inObstacle = true;}
+	else if(tiles2[indEdges[2].x + indEdges[2].y*carte.get_xTiles()] == 15){intersectX = indEdges[2].x;intersectY = indEdges[2].y;inObstacle = true;}
+	else if(tiles2[indEdges[3].x + indEdges[3].y*carte.get_xTiles()] == 15){intersectX = indEdges[3].x;intersectY = indEdges[3].y;inObstacle = true;} 
+	return(inObstacle);
 }
 
 // detecte une collision entre le perso et le decor
@@ -126,29 +159,26 @@ bool Character::collision(Direction direction, TileMap& carte, const int* tiles,
 	if(direction == DOWN){newY += 14;}
 	if(direction == RIGHT){newX += 14;}
 	if(direction == LEFT){newX -= 14;}
-	std::cout << "new x = " << newX << " , new y = " << newY << std::endl; 
-	int newIndX = newX/carte.get_tileSize();
- 	int newIndY = newY/carte.get_tileSize();
- 	int obstacleX = carte.get_vertices()[newIndX][newIndY][0].position.x;
- 	int obstacleY = carte.get_vertices()[newIndX][newIndY][0].position.y;
- 	std::cout << "tile2 = " << tiles2[newIndX + newIndY*carte.get_xTiles()] << std::endl;
- 	if(tiles[newIndX + newIndY*carte.get_xTiles()] == 3 or tiles2[newIndX + newIndY*carte.get_xTiles()] == 15){
- 		if(abs(obstacleX - posX) < 36 or abs(obstacleY - posY) < 36){
+	// std::cout << "new x = " << newX << " , new y = " << newY << std::endl; 
+	
+ 	int obstacleX = 0; 
+ 	int obstacleY = 0; 
+ 	int intersectX = 0;
+ 	int intersectY = 0;	
+	std::vector<sf::Vector2<int>> newIndEdges = get_indEdges(carte,newX,newY); //donnes les points au bord de la nouvelle position du perso
+
+ 	// std::cout << "tile2 = " << tiles2[newIndX + newIndY*carte.get_xTiles()] << std::endl;
+	// std::cout << "distance obs x = " << abs(obstacleX - posX) << " , distance obs y = " << abs(obstacleY - posY) << std::endl; 
+ 	if(inObstacleTile(carte, tiles, tiles2, newIndEdges, intersectX, intersectY)){
+ 		std::cout << "obstacle\n";
+ 		obstacleX = carte.get_vertices()[intersectX][intersectY][0].position.x;
+ 		obstacleY = carte.get_vertices()[intersectX][intersectY][0].position.y;
+ 		if(abs(obstacleX - posX) < 17*1.5+1 or abs(obstacleY - posY) < 20*1.5+1){
  			collision = true;
  		}
  	}	
 	return(collision);
 }
-
-		// m_sprite.move(0,14);
-
-		// m_sprite.move(0,-14);
-
-		// m_sprite.move(14,0);
-
-		// m_sprite.move(-14,0);
-
-
 
 
  //dans le sprite du perso (sprite.png) : bas : 67 33 //haut : 0 0 //right : 35 0 //left 5 65

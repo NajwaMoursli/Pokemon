@@ -64,6 +64,8 @@ int main(int argc, char ** argv){
         3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
     };
 
+    const int obstacleTiles[]  = {};
+
     // on crée la tilemap avec le niveau précédemment défini
     TileMap map(19,18,684,648,36);
     if (!map.load("tileset_graveyard_tower_interior.png", level)){
@@ -73,6 +75,14 @@ int main(int argc, char ** argv){
     if (!mapLevel2.load("tileset_graveyard_tower_interior.png", level2)){
         return -1;
 	}
+
+	// for(int j = 0; j < 18; ++j){  
+ //        for(int i = 0; i < 19; ++i){
+	// 		// std::cout << "x = " << map.get_vertices()[i][j][0].position.x << " , y = " << map.get_vertices()[i][j][0].position.y << std::endl; 
+	// 	 	std::cout << level[i + j*map.get_xTiles()] << " ";
+ //        }
+	//  	std::cout << std::endl;
+ //    }
 
 
 /*creation du personnage du joueur*/
@@ -86,11 +96,11 @@ int main(int argc, char ** argv){
 	sf::Sprite fog(fogTexture);
 
 /*creation de la musique*/
-	sf::Music music;
-	if (!music.openFromFile("pokemon_tower_theme.wav"))
-	    return -1; // erreur
-	music.setVolume(50);
-	music.play();
+	// sf::Music music;
+	// if (!music.openFromFile("pokemon_tower_theme.wav"))
+	//     return -1; // erreur
+	// music.setVolume(50);
+	// music.play();
 
 /*gestion des evenements*/
 	sf::Clock clock;
@@ -105,6 +115,7 @@ int main(int argc, char ** argv){
 		    //evenements lies au deplacement du joueur
 		    bool collision = false;
 			if (event.type == sf::Event::KeyPressed){
+			 	// std::cout << "tile = " << level[Peter2.get_indX() + Peter2.get_indY()*map.get_xTiles()] << std::endl;
 			    if (event.key.code == sf::Keyboard::S){ //le point (0,0) est en haut a gauche
 			    	collision = Peter2.collision(DOWN, map, level, level2);
 			    	std::cout << "collisionDOWN = " << collision << std::endl;

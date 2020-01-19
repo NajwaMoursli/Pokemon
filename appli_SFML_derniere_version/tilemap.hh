@@ -37,14 +37,14 @@ public:
             return false;
 
         // on remplit le tableau de vertex, avec un quad par case
-        for(int j = 0; j < m_yTiles; ++j)
-            for(int i = 0; i < m_xTiles; ++i)
+        for(int j = 0; j < m_yTiles; ++j) //m_yTiles = 18
+            for(int i = 0; i < m_xTiles; ++i) //m_xTiles = 19
             {
                 m_vertices[i][j].setPrimitiveType(sf::Quads);
                 m_vertices[i][j].resize(4);
 
                 // on récupère le numéro de la case (ce sont les numeros affichees dans la grille Tilemap map)
-                int tileNumber = tiles[i + j * m_xTiles];
+                int tileNumber = tiles[i + j * m_xTiles]; //tiles[abscisses(0:19) + ordonnees*largeur(0:18)]
 
                 // on en déduit sa position dans l'image du tileset
                 int tu = tileNumber % (m_tileset.getSize().x / m_tileSize);
