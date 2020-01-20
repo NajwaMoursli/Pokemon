@@ -8,7 +8,7 @@
 
 //anime et deplace le perso s'il n'y a pas d'obstacleL
 void Character::move_down(bool collision, sf::Clock& clock){
-	if(clock.getElapsedTime().asSeconds() > 0.13){ //pour ralentir l'animation, sinon elle est trop rapide
+	if(clock.getElapsedTime().asSeconds() > 0.12){ //pour ralentir l'animation, sinon elle est trop rapide
 		// std::cout << m_intRect.left << ", " << m_intRect.top << std::endl; //immobile bas : 67 33
 		if((m_intRect.left == 67 and m_intRect.top == 33)or(m_intRect.left == 68 and m_intRect.top == 97)){
 	    	m_intRect.left = 66;
@@ -24,7 +24,7 @@ void Character::move_down(bool collision, sf::Clock& clock){
 		}
 	m_sprite.setTextureRect(m_intRect);
 	if(!collision){
-		m_sprite.move(0,14);
+		m_sprite.move(0,13);
 	}
 	clock.restart();
 	}
@@ -32,7 +32,7 @@ void Character::move_down(bool collision, sf::Clock& clock){
 
 //anime et deplace le perso s'il n'y a pas d'obstacle
 void Character::move_up(bool collision, sf::Clock& clock){
-	if(clock.getElapsedTime().asSeconds() > 0.13){ //pour ralentir l'animation, sinon elle est trop rapide
+	if(clock.getElapsedTime().asSeconds() > 0.12){ //pour ralentir l'animation, sinon elle est trop rapide
 		// std::cout << m_intRect.left << ", " << m_intRect.top << std::endl;
 		if((m_intRect.left == 0 and m_intRect.top == 0)or(m_intRect.left == 69 and m_intRect.top == 0)){
 	    	m_intRect.left = 36;
@@ -49,7 +49,7 @@ void Character::move_up(bool collision, sf::Clock& clock){
 		}
 	m_sprite.setTextureRect(m_intRect);
 	if(!collision){
-		m_sprite.move(0,-14);
+		m_sprite.move(0,-13);
 	}
 	clock.restart();
 	}
@@ -57,7 +57,7 @@ void Character::move_up(bool collision, sf::Clock& clock){
 
 //anime et deplace le perso s'il n'y a pas d'obstacle
 void Character::move_right(bool collision, sf::Clock& clock){
-	if(clock.getElapsedTime().asSeconds() > 0.13){ //pour ralentir l'animation, sinon elle est trop rapide
+	if(clock.getElapsedTime().asSeconds() > 0.12){ //pour ralentir l'animation, sinon elle est trop rapide
 		// std::cout << m_intRect.left << ", " << m_intRect.top << std::endl;
 		if((m_intRect.left == 35 and m_intRect.top == 0)or(m_intRect.left == 35 and m_intRect.top == 65)){
 	    	m_intRect.left = 34;
@@ -73,7 +73,7 @@ void Character::move_right(bool collision, sf::Clock& clock){
 		}
 	m_sprite.setTextureRect(m_intRect);
 	if(!collision){
-		m_sprite.move(14,0);
+		m_sprite.move(13,0);
 	}
 	clock.restart();
 	}
@@ -81,7 +81,7 @@ void Character::move_right(bool collision, sf::Clock& clock){
 
 //anime et deplace le perso s'il n'y a pas d'obstacle
 void Character::move_left(bool collision, sf::Clock& clock){
-	if(clock.getElapsedTime().asSeconds() > 0.13){ //pour ralentir l'animation, sinon elle est trop rapide
+	if(clock.getElapsedTime().asSeconds() > 0.12){ //pour ralentir l'animation, sinon elle est trop rapide
 		// std::cout << m_intRect.left << ", " << m_intRect.top << std::endl;
 		if((m_intRect.left == 5 and m_intRect.top == 65)or(m_intRect.left == 4 and m_intRect.top == 96)){
 	    	m_intRect.left = 4;
@@ -97,7 +97,7 @@ void Character::move_left(bool collision, sf::Clock& clock){
 		}
 	m_sprite.setTextureRect(m_intRect);
 	if(!collision){
-		m_sprite.move(-14,0);
+		m_sprite.move(-13,0);
 	}
 	clock.restart();
 	}
@@ -136,10 +136,22 @@ bool Character::inObstacleTile(TileMap& carte, const int* tiles,const int* tiles
 	else if(tiles[indEdges[1].x + indEdges[1].y*carte.get_xTiles()] == 3){intersectX = indEdges[1].x;intersectY = indEdges[1].y;inObstacle = true;}
 	else if(tiles[indEdges[2].x + indEdges[2].y*carte.get_xTiles()] == 3){intersectX = indEdges[2].x;intersectY = indEdges[2].y;inObstacle = true;}
 	else if(tiles[indEdges[3].x + indEdges[3].y*carte.get_xTiles()] == 3){intersectX = indEdges[3].x;intersectY = indEdges[3].y;inObstacle = true;}
-	else if(tiles2[indEdges[0].x + indEdges[0].y*carte.get_xTiles()] == 15){intersectX = indEdges[0].x;intersectY = indEdges[0].y;inObstacle = true;}
-	else if(tiles2[indEdges[1].x + indEdges[1].y*carte.get_xTiles()] == 15){intersectX = indEdges[1].x;intersectY = indEdges[1].y;inObstacle = true;}
-	else if(tiles2[indEdges[2].x + indEdges[2].y*carte.get_xTiles()] == 15){intersectX = indEdges[2].x;intersectY = indEdges[2].y;inObstacle = true;}
-	else if(tiles2[indEdges[3].x + indEdges[3].y*carte.get_xTiles()] == 15){intersectX = indEdges[3].x;intersectY = indEdges[3].y;inObstacle = true;} 
+	else if(tiles2[indEdges[0].x + indEdges[0].y*carte.get_xTiles()] == 23){intersectX = indEdges[0].x;intersectY = indEdges[0].y;inObstacle = true;}
+	else if(tiles2[indEdges[1].x + indEdges[1].y*carte.get_xTiles()] == 23){intersectX = indEdges[1].x;intersectY = indEdges[1].y;inObstacle = true;}
+	else if(tiles2[indEdges[2].x + indEdges[2].y*carte.get_xTiles()] == 23){intersectX = indEdges[2].x;intersectY = indEdges[2].y;inObstacle = true;}
+	else if(tiles2[indEdges[3].x + indEdges[3].y*carte.get_xTiles()] == 23){intersectX = indEdges[3].x;intersectY = indEdges[3].y;inObstacle = true;} 
+	else if(tiles2[indEdges[0].x + indEdges[0].y*carte.get_xTiles()] == 4){intersectX = indEdges[0].x;intersectY = indEdges[0].y;inObstacle = true;}
+	else if(tiles2[indEdges[1].x + indEdges[1].y*carte.get_xTiles()] == 4){intersectX = indEdges[1].x;intersectY = indEdges[1].y;inObstacle = true;}
+	else if(tiles2[indEdges[2].x + indEdges[2].y*carte.get_xTiles()] == 4){intersectX = indEdges[2].x;intersectY = indEdges[2].y;inObstacle = true;}
+	else if(tiles2[indEdges[3].x + indEdges[3].y*carte.get_xTiles()] == 4){intersectX = indEdges[3].x;intersectY = indEdges[3].y;inObstacle = true;}
+	else if(tiles2[indEdges[0].x + indEdges[0].y*carte.get_xTiles()] == 12){intersectX = indEdges[0].x;intersectY = indEdges[0].y;inObstacle = true;}
+	else if(tiles2[indEdges[1].x + indEdges[1].y*carte.get_xTiles()] == 12){intersectX = indEdges[1].x;intersectY = indEdges[1].y;inObstacle = true;}
+	else if(tiles2[indEdges[2].x + indEdges[2].y*carte.get_xTiles()] == 12){intersectX = indEdges[2].x;intersectY = indEdges[2].y;inObstacle = true;}
+	else if(tiles2[indEdges[3].x + indEdges[3].y*carte.get_xTiles()] == 12){intersectX = indEdges[3].x;intersectY = indEdges[3].y;inObstacle = true;}
+	else if(tiles2[indEdges[0].x + indEdges[0].y*carte.get_xTiles()] == 20){intersectX = indEdges[0].x;intersectY = indEdges[0].y;inObstacle = true;}
+	else if(tiles2[indEdges[1].x + indEdges[1].y*carte.get_xTiles()] == 20){intersectX = indEdges[1].x;intersectY = indEdges[1].y;inObstacle = true;}
+	else if(tiles2[indEdges[2].x + indEdges[2].y*carte.get_xTiles()] == 20){intersectX = indEdges[2].x;intersectY = indEdges[2].y;inObstacle = true;}
+	else if(tiles2[indEdges[3].x + indEdges[3].y*carte.get_xTiles()] == 20){intersectX = indEdges[3].x;intersectY = indEdges[3].y;inObstacle = true;}
 	return(inObstacle);
 }
 
@@ -155,10 +167,10 @@ bool Character::collision(Direction direction, TileMap& carte, const int* tiles,
 	int newY = posY;
 
 	std::cout << "old x = " << newX << " , old y = " << newY << std::endl;
-	if(direction == UP){newY -= 14;}
-	if(direction == DOWN){newY += 14;}
-	if(direction == RIGHT){newX += 14;}
-	if(direction == LEFT){newX -= 14;}
+	if(direction == UP){newY -= 13;}
+	if(direction == DOWN){newY += 13;}
+	if(direction == RIGHT){newX += 13;}
+	if(direction == LEFT){newX -= 13;}
 	// std::cout << "new x = " << newX << " , new y = " << newY << std::endl; 
 	
  	int obstacleX = 0; 
@@ -173,7 +185,7 @@ bool Character::collision(Direction direction, TileMap& carte, const int* tiles,
  		std::cout << "obstacle\n";
  		obstacleX = carte.get_vertices()[intersectX][intersectY][0].position.x;
  		obstacleY = carte.get_vertices()[intersectX][intersectY][0].position.y;
- 		if(abs(obstacleX - posX) < 17*1.5+1 or abs(obstacleY - posY) < 20*1.5+1){
+ 		if(abs(obstacleX - posX) < 15*1.5+1 or abs(obstacleY - posY) < 20*1.5+1){
  			collision = true;
  		}
  	}	
