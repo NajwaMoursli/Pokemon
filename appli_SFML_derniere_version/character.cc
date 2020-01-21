@@ -8,7 +8,7 @@
 
 //anime et deplace le perso s'il n'y a pas d'obstacleL
 void Character::move_down(bool collision, sf::Clock& clock){
-	if(clock.getElapsedTime().asSeconds() > 0.12){ //pour ralentir l'animation, sinon elle est trop rapide
+	if(clock.getElapsedTime().asSeconds() > 0.13){ //pour ralentir l'animation, sinon elle est trop rapide
 		// std::cout << m_intRect.left << ", " << m_intRect.top << std::endl; //immobile bas : 67 33
 		if((m_intRect.left == 67 and m_intRect.top == 33)or(m_intRect.left == 68 and m_intRect.top == 97)){
 	    	m_intRect.left = 66;
@@ -32,7 +32,7 @@ void Character::move_down(bool collision, sf::Clock& clock){
 
 //anime et deplace le perso s'il n'y a pas d'obstacle
 void Character::move_up(bool collision, sf::Clock& clock){
-	if(clock.getElapsedTime().asSeconds() > 0.12){ //pour ralentir l'animation, sinon elle est trop rapide
+	if(clock.getElapsedTime().asSeconds() > 0.13){ //pour ralentir l'animation, sinon elle est trop rapide
 		// std::cout << m_intRect.left << ", " << m_intRect.top << std::endl;
 		if((m_intRect.left == 0 and m_intRect.top == 0)or(m_intRect.left == 69 and m_intRect.top == 0)){
 	    	m_intRect.left = 36;
@@ -57,7 +57,7 @@ void Character::move_up(bool collision, sf::Clock& clock){
 
 //anime et deplace le perso s'il n'y a pas d'obstacle
 void Character::move_right(bool collision, sf::Clock& clock){
-	if(clock.getElapsedTime().asSeconds() > 0.12){ //pour ralentir l'animation, sinon elle est trop rapide
+	if(clock.getElapsedTime().asSeconds() > 0.13){ //pour ralentir l'animation, sinon elle est trop rapide
 		// std::cout << m_intRect.left << ", " << m_intRect.top << std::endl;
 		if((m_intRect.left == 35 and m_intRect.top == 0)or(m_intRect.left == 35 and m_intRect.top == 65)){
 	    	m_intRect.left = 34;
@@ -81,7 +81,7 @@ void Character::move_right(bool collision, sf::Clock& clock){
 
 //anime et deplace le perso s'il n'y a pas d'obstacle
 void Character::move_left(bool collision, sf::Clock& clock){
-	if(clock.getElapsedTime().asSeconds() > 0.12){ //pour ralentir l'animation, sinon elle est trop rapide
+	if(clock.getElapsedTime().asSeconds() > 0.13){ //pour ralentir l'animation, sinon elle est trop rapide
 		// std::cout << m_intRect.left << ", " << m_intRect.top << std::endl;
 		if((m_intRect.left == 5 and m_intRect.top == 65)or(m_intRect.left == 4 and m_intRect.top == 96)){
 	    	m_intRect.left = 4;
@@ -185,7 +185,7 @@ bool Character::collision(Direction direction, TileMap& carte, const int* tiles,
  		std::cout << "obstacle\n";
  		obstacleX = carte.get_vertices()[intersectX][intersectY][0].position.x;
  		obstacleY = carte.get_vertices()[intersectX][intersectY][0].position.y;
- 		if(abs(obstacleX - posX) < 15*1.5+1 or abs(obstacleY - posY) < 20*1.5+1){
+ 		if(abs(obstacleX - posX) < 17*1.5+1 or abs(obstacleY - posY) < 27*1.5+1){
  			collision = true;
  		}
  	}	

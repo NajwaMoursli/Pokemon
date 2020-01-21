@@ -6,6 +6,7 @@
 #include "global2.hh"
 #include "tilemap.hh"
 #include "character.hh"
+#include "game.hh"
 
 // using namespace sf;
 using namespace std;
@@ -48,12 +49,12 @@ int main(int argc, char ** argv){
         1, 16, 3, 3, 3, 3, 3, 3, 12, 3, 3, 3, 12, 3, 3, 3, 3, 9, 10,
         9, 9, 3, 3, 3, 3, 3, 3,  20, 3, 3, 3, 20, 3, 3, 3, 3, 3, 10,
         23, 3, 3, 3, 3, 3, 3, 3, 23, 3, 3, 3, 23, 3, 3, 3, 3, 3, 10,
-        23, 3, 3, 3, 23, 3, 23, 23, 3, 3, 3, 23, 23, 3, 3, 3, 3, 3, 18,
+        23, 3, 3, 3, 23, 3, 23, 23, 23, 3, 3, 23, 23, 3, 3, 3, 3, 3, 18,
         23, 3, 3, 3, 3, 23, 3, 3, 3, 3, 3, 3, 23, 3, 3, 3, 3, 23, 9,
         3, 3, 3, 3, 23, 23, 23, 3, 3, 3, 3, 23, 23, 3, 3, 23, 23, 23, 3,
         3, 3, 3, 3, 3, 23, 3, 3, 3, 3, 3, 3, 3, 23, 3, 3, 23, 23, 3,
         3, 3, 3, 3, 3, 23, 3, 3, 3, 3, 3, 3, 23, 23, 23, 23, 23, 23, 23,
-        3, 23, 3, 3, 3, 23, 23, 23, 23, 3, 3, 3, 3, 3, 23, 3, 3, 3, 3,
+        3, 23, 3, 3, 3, 23, 23, 23, 23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
         3, 23, 3, 3, 3, 3, 23, 3, 23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
         3, 23, 3, 3, 3, 3, 3, 3, 23, 23, 23, 23, 23, 3, 3, 3, 3, 3, 3,
         3, 23, 3, 3, 3, 3, 3, 3, 3, 3, 23, 23, 23, 23, 3, 3, 3, 3, 3,
@@ -90,12 +91,12 @@ int main(int argc, char ** argv){
 
 /*creation de giratina*/
     sf::Texture giratinaTexture;
-	giratinaTexture.loadFromFile(filename);
+	giratinaTexture.loadFromFile("giratina.png");
 	sf::Sprite giratina(giratinaTexture);
 	giratina.setTexture(giratinaTexture);
-	giratina.setTextureRect(m_intRect);
-	giratina.setPosition(x,y);
-	giratina.setScale(1.5,1.5);
+	// giratina.setTextureRect(m_intRect);
+	giratina.setPosition(324,105);
+	giratina.setScale(2,2);
 
 /*creation de la fumee
     sf::Texture fogTexture;
@@ -173,6 +174,7 @@ int main(int argc, char ** argv){
 	renderWindow.clear();
 	renderWindow.draw(map);
 	renderWindow.draw(mapLevel2);	
+	renderWindow.draw(giratina);
 	renderWindow.draw(Peter2.m_sprite);
 	// renderWindow.draw(fog);
 	renderWindow.display();

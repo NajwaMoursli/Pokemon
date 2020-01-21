@@ -1,2 +1,3 @@
-main.o: main.cc global2.hh tilemap.hh character.hh
+main.o: main.cc global2.hh tilemap.hh character.hh game.hh
+game.o: game.cc game.hh character.hh global2.hh tilemap.hh
 character.o: character.cc global2.hh character.hh tilemap.hh
