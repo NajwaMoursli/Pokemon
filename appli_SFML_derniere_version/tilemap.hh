@@ -6,6 +6,34 @@
 
 class TileMap : public sf::Drawable, public sf::Transformable
 {
+private:
+    sf::VertexArray** m_vertices;  // tableau de cases (ensemble de quatre points)
+    static int* m_grid1;
+    static int* m_grid2;
+    sf::Texture m_tileset; // l'image du tileset
+    int m_tileSize; // taille d'un tile (d'une case) en pixels
+    int m_xTiles; // largeur du tileset en tiles (en cases)
+    int m_yTiles; // hauteur du tileset en tiles (en cases)
+    int m_xPixels; // largeur du tileset en pixels
+    int m_yPixels; // hauteur du tileset en pixels
+
+    //dessine, affiche la map sur l'ecran 
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
+    {
+        // on applique la transformation
+        states.transform *= getTransform();
+
+        // on applique la texture du tileset
+        states.texture = &m_tileset;
+
+        // et on dessine enfin le tableau de vertex
+        for(int j = 0; j < m_yTiles; ++j){  
+            for(int i = 0; i < m_xTiles; ++i)
+            {
+                target.draw(m_vertices[i][j], states);
+            }
+        }
+    }
 public:
     TileMap(int p_xTiles, int p_yTiles, int p_xPixels, int p_yPixels, int p_tileSize):
         m_tileSize(p_tileSize),m_xTiles(p_xTiles),m_yTiles(p_yTiles),m_xPixels(p_xPixels),m_yPixels(p_yPixels){
@@ -13,9 +41,53 @@ public:
             for(int i = 0;i < m_xTiles;i++){
                 m_vertices[i] = new sf::VertexArray[m_yTiles];
             }
+            m_grid1 = new int[m_xTiles*m_yTiles]{
+                3, 3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3, 3,
+                3,  3,  3,  3, 3,  3,  3,  24,  3,  3,  3,  24,  3,  3, 3,  3,  3,  3, 3,
+                3,  3,  3,  3,  3, 24, 24, 24,  24, 24, 24, 24, 24, 24, 3,  3,  3, 3, 3,
+                3, 3, 24, 24, 24, 24, 24, 24, 24,  56, 57, 58, 24, 24, 24, 24, 24, 3, 10,
+                24, 3, 24, 24, 24, 24, 24, 24,  24, 64, 65, 66, 24, 24, 24, 24, 24, 24, 10,
+                24, 24, 24, 24, 24, 24, 24, 24, 24, 72, 73, 74, 24, 24, 24, 24, 24, 24, 10,
+                24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 18,
+                24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+                3, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+                3, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+                3, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+                3, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 3,
+                3, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 3,
+                3, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 3,
+                3, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 3, 3,
+                3, 3, 3, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 3, 3,
+                3, 3, 3, 3, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 3, 3, 3,
+                 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+                
+            };
+            m_grid2 = new int[m_xTiles*m_yTiles]{
+                3, 3,  3,  3,  0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  2,  3,  3,  3, 3,
+                3,  0,  1,  1, 16,  9,  9,  9,  9,  9,  9,  9,  9,  9, 18,  1,  1,  2, 3,
+                3,  8,  9,  9,  9, 3, 3, 3,  4, 3, 3, 3, 4, 3, 9,  9,  9, 18, 2,
+                1, 16, 3, 3, 3, 3, 3, 3, 12, 3, 3, 3, 12, 3, 3, 3, 3, 9, 10,
+                9, 9, 3, 3, 3, 3, 3, 3,  20, 3, 3, 3, 20, 3, 3, 3, 3, 3, 10,
+                23, 3, 3, 3, 3, 3, 3, 3, 23, 3, 3, 3, 23, 3, 3, 3, 3, 3, 10,
+                23, 3, 3, 3, 23, 3, 23, 23, 23, 3, 3, 23, 23, 3, 3, 3, 3, 3, 18,
+                23, 3, 3, 3, 3, 23, 3, 3, 3, 3, 3, 3, 23, 3, 3, 3, 3, 23, 9,
+                3, 3, 3, 3, 23, 23, 23, 3, 3, 3, 3, 23, 23, 3, 3, 23, 23, 23, 3,
+                3, 3, 3, 3, 3, 23, 3, 3, 3, 3, 3, 3, 3, 23, 3, 3, 23, 23, 3,
+                3, 3, 3, 3, 3, 23, 3, 3, 3, 3, 3, 3, 23, 23, 23, 23, 23, 23, 23,
+                3, 23, 3, 3, 3, 23, 23, 23, 23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+                3, 23, 3, 3, 3, 3, 23, 3, 23, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+                3, 23, 3, 3, 3, 3, 3, 3, 23, 23, 23, 23, 23, 3, 3, 3, 3, 3, 3,
+                3, 23, 3, 3, 3, 3, 3, 3, 3, 3, 23, 23, 23, 23, 3, 3, 3, 3, 3,
+                3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+                3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+                 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+            };
+            
     }
 
     sf::VertexArray** get_vertices() const{return(m_vertices);}
+    static int* get_grid1(){return(m_grid1);}
+    static int* get_grid2(){return(m_grid2);}
     int get_tileSize() const{return(m_tileSize);}
     int get_xTiles() const{return(m_xTiles);}
 
@@ -24,6 +96,8 @@ public:
             delete[] m_vertices[i];
         }
         delete[] m_vertices;
+        delete[] m_grid1;
+        delete[] m_grid2;
         std::cout << "TileMap a ete detruit.\n";
     }
 
@@ -70,33 +144,6 @@ public:
         for(int j = 0; j < m_yTiles; ++j){
             for(int i = 0; i < m_xTiles; ++i){
                 std::cout << "x = " << m_vertices[i][j][0].position.x << ", y = " << m_vertices[i][j][0].position.y << std::endl;
-            }
-        }
-    }
-
-private:
-    sf::VertexArray** m_vertices;  // tableau de cases (ensemble de quatre points)
-    sf::Texture m_tileset; // l'image du tileset
-    int m_tileSize; // taille d'un tile (d'une case) en pixels
-    int m_xTiles; // largeur du tileset en tiles (en cases)
-    int m_yTiles; // hauteur du tileset en tiles (en cases)
-    int m_xPixels; // largeur du tileset en pixels
-    int m_yPixels; // hauteur du tileset en pixels
-
-    //dessine, affiche la map sur l'ecran 
-    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
-    {
-        // on applique la transformation
-        states.transform *= getTransform();
-
-        // on applique la texture du tileset
-        states.texture = &m_tileset;
-
-        // et on dessine enfin le tableau de vertex
-        for(int j = 0; j < m_yTiles; ++j){  
-            for(int i = 0; i < m_xTiles; ++i)
-            {
-                target.draw(m_vertices[i][j], states);
             }
         }
     }

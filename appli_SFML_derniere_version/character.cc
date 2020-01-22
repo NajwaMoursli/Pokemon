@@ -6,6 +6,7 @@
 #include "tilemap.hh"
 #include <vector>
 
+
 //anime et deplace le perso s'il n'y a pas d'obstacleL
 void Character::move_down(bool collision, sf::Clock& clock){
 	if(clock.getElapsedTime().asSeconds() > 0.13){ //pour ralentir l'animation, sinon elle est trop rapide
@@ -104,7 +105,7 @@ void Character::move_left(bool collision, sf::Clock& clock){
 }
 
 //donne l'indice (iX,iY) de la case ou tile dans laquelle se trouve un point :
-void Character::update_index(TileMap& carte){
+void Character::update_index(const TileMap& carte){
 	m_ind[0].x = m_sprite.getPosition().x/carte.get_tileSize();
 	m_ind[0].y = m_sprite.getPosition().y/carte.get_tileSize();
 	m_ind[1].x = (m_sprite.getPosition().x + 36)/carte.get_tileSize();
@@ -117,7 +118,7 @@ void Character::update_index(TileMap& carte){
 	// std::cout << "indx = " << m_indX << ", indy = " << m_indY << std::endl;
 }
 
-std::vector<sf::Vector2<int>> Character::get_indEdges(TileMap& carte, int x, int y){
+std::vector<sf::Vector2<int>> Character::get_indEdges(const TileMap& carte, int x, int y){
 	std::vector<sf::Vector2<int>> indEdges = {{0,0},{0,0},{0,0},{0,0}};
 	indEdges[0].x = x/carte.get_tileSize();
 	indEdges[0].y = y/carte.get_tileSize();
@@ -130,7 +131,7 @@ std::vector<sf::Vector2<int>> Character::get_indEdges(TileMap& carte, int x, int
 	return(indEdges);
 }
 
-bool Character::inObstacleTile(TileMap& carte, const int* tiles,const int* tiles2, std::vector<sf::Vector2<int>> indEdges, int& intersectX, int& intersectY){
+bool Character::inObstacleTile(const TileMap& carte, const int* tiles,const int* tiles2, std::vector<sf::Vector2<int>> indEdges, int& intersectX, int& intersectY){
 	bool inObstacle = false;
 	if(tiles[indEdges[0].x + indEdges[0].y*carte.get_xTiles()] == 3){intersectX = indEdges[0].x;intersectY = indEdges[0].y;inObstacle = true;}
 	else if(tiles[indEdges[1].x + indEdges[1].y*carte.get_xTiles()] == 3){intersectX = indEdges[1].x;intersectY = indEdges[1].y;inObstacle = true;}
@@ -159,7 +160,7 @@ bool Character::inObstacleTile(TileMap& carte, const int* tiles,const int* tiles
 //	- direction : direction du deplacement du perso (varie en fonction de la touche appuyee par le joueur)
 //	- carte : carte tracee a l'affichage
 //	- tiles : carte avec des numeros qui representent les tiles et leur texture (sol, vide, ciel, carrelage...)
-bool Character::collision(Direction direction, TileMap& carte, const int* tiles,const int* tiles2){
+bool Character::collision(Direction direction, const TileMap& carte, const int* tiles,const int* tiles2){
 	bool collision = false;
 	int posX = m_sprite.getPosition().x;
 	int posY = m_sprite.getPosition().y; 

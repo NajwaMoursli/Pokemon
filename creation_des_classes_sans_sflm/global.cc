@@ -7,7 +7,6 @@
 
 const std::vector<std::string> typeNames = {"Fight","Normal","Fire","Water","Grass","Electric","Ice","Dragon","Dark","Ghost","Psychic"
 	,"Ground","Rock","Steel","Flying","Bug","Poison"};
-//enum Type {Fight,Normal,Fire,Water,Grass,Electric,Ice,Dragon,Dark,Ghost,Psychic,Ground,Rock,Steel,Flying,Bug,Poison};
 
 const std::vector<std::string> moveCategoriesNames = {"Physical","Special","StatSelf","StatEnemy"};
 const std::vector<std::string> statNames = {"Attack","SpecialAttack","Defense","SpecialDefense","Speed"};
