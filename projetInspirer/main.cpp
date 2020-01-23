@@ -4,7 +4,7 @@
 #include "Header.h"
 #include "Battle.h"
 
-int main(int argc, char* argv[])
+int main(int argc, char ** argv)
 {
 	Game::Start();
 

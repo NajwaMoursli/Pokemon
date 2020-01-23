@@ -11,7 +11,7 @@ void Intro::show(sf::RenderWindow &window)
 
 	sf::Sprite sprite(texture);//création texture qui permet utilisation Sprite Sheet
 	window.draw(sprite);// Dessin de la sprite sur la fenetre crée
-	window.display();//Affichage de la fentre 
+	window.display();//Affichage de la fenetre 
 
 	sf::Event currentEvent;// actions clavier définissant comment jouer (les evenements), ajouter à la queue, ici création evenement
 	while(true)

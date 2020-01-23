@@ -24,44 +24,37 @@ int main(){
 	// cout << SpecialDamage::TONNERRE.toString();
 	// cout << SpecialDamage::PUISSANCECACHEEFEU.toString();
 
-
-
-    PokemonGhost ectoplasma("Ectoplasma",261,149,270,215,205,285,SpecialDamageAndChangeStat::BALLOMBRE,SpecialDamageAndChangeStat::EXPLOFORCE,
-    		SpecialDamage::TONNERRE,SpecialDamage::PUISSANCECACHEEFEU);
-  	PokemonPsychic ectoplasma2("Ectoplasma",261,149,270,236,102,285,SpecialDamageAndChangeStat::BALLOMBRE,SpecialDamageAndChangeStat::EXPLOFORCE,
-    		SpecialDamage::TONNERRE,SpecialDamage::PUISSANCECACHEEFEU);
-
-    cout << ectoplasma.toString();
-    cout << ectoplasma2.toString();
-
-    cout << ectoplasma.movesetToString(); 
+    cout << PokemonGhost::GIRATINA.toString();
+    cout << PokemonGhost::ECTOPLASMA.toString();
+    cout << PokemonDragon::DRACOLOSSE.toString();
+    cout << PokemonGhost::ECTOPLASMA.movesetToString(); 
 
     //m_moves[0]->get_name();
-    // cout << ectoplasma.get_moves()[0]->toString();
-    // cout << ectoplasma.get_moves()[1]->toString();
-    // cout << ectoplasma.get_moves()[2]->toString();
-    // cout << ectoplasma.get_moves()[3]->toString();
+    // cout << ECTOPLASMA.get_moves()[0]->toString();
+    // cout << ECTOPLASMA.get_moves()[1]->toString();
+    // cout << ECTOPLASMA.get_moves()[2]->toString();
+    // cout << ECTOPLASMA.get_moves()[3]->toString();
 
-    cout << ectoplasma.get_hp() << endl;
-    cout << ectoplasma2.get_hp() << endl;
-    cout << ectoplasma2.get_specialDefense() << endl;
+    cout << "ectoplasma hp = " << PokemonGhost::ECTOPLASMA.get_hp() << endl;
+    cout << "dracolosse hp = " << PokemonDragon::DRACOLOSSE.get_hp() << endl;
+    cout << PokemonDragon::DRACOLOSSE.get_specialDefense() << endl;
 
     int choix;
     cout << "Quelle attaque choisissez-vous ? : ";
     cin >> choix; 
     cout << endl;
-    cout << ectoplasma.get_name() + " utilise " + ectoplasma.get_moves()[choix-1]->get_name();
+    cout << PokemonGhost::ECTOPLASMA.get_name() + " utilise " + PokemonGhost::ECTOPLASMA.get_moves()[choix-1]->get_name();
 
-    ectoplasma.get_moves()[choix-1]->apply_move(ectoplasma,ectoplasma2);
+    PokemonGhost::ECTOPLASMA.get_moves()[choix-1]->apply_move(PokemonGhost::ECTOPLASMA,PokemonDragon::DRACOLOSSE);
     cout << endl;
-    cout << ectoplasma.get_hp() << endl;
-    cout << ectoplasma2.get_hp() << endl;
-    cout << ectoplasma2.get_specialDefense() << endl;
+    cout << "ectoplasma hp = " << PokemonGhost::ECTOPLASMA.get_hp() << endl;
+    cout << "dracolosse hp = " << PokemonDragon::DRACOLOSSE.get_hp() << endl;
+    cout << PokemonGhost::ECTOPLASMA.get_specialDefense() << endl;
 
 
 
 
-    // SpecialDamage::PUISSANCECACHEEFEU.apply_move(ectoplasma,ectoplasma2);
+    // SpecialDamage::PUISSANCECACHEEFEU.apply_move(ECTOPLASMA,ECTOPLASMA2);
 
 }
 

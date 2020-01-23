@@ -20,6 +20,7 @@ protected:
 	std::vector<const Move*> m_moves; 
 
 public:
+
 	//constructeur par liste d'initialisation qui initialise tous les attributs d'une instance de Pokemon
 	Pokemon(std::string p_name,Type p_type,int p_level,int p_hp,int p_attack,int p_specialAttack,
 		int p_defense,int p_specialDefense,int p_speed,const Move& m1,const Move& m2,const Move& m3,const Move& m4):
@@ -63,8 +64,8 @@ public:
 	void set_speed(int p_speed){m_speed = p_speed;}
 
 	bool is_ko() const{if(m_hp == 0){return(true);}else{return(false);}}
-	std::string toString(); //retourne une string qui decrit un pokemon
-	std::string movesetToString();
+	std::string toString() const; //retourne une string qui decrit un pokemon
+	std::string movesetToString() const;
 };
 
 class PokemonFire : public Pokemon{
@@ -133,7 +134,8 @@ public:
 
 class PokemonGhost : public Pokemon{
 public:
-	//("Ectoplasma",261,149,270,215,205,285,movesetEctoplasma);
+	static PokemonGhost GIRATINA;
+	static PokemonGhost ECTOPLASMA;
 	PokemonGhost(std::string p_name,int p_hp,int p_attack,int p_specialAttack,int p_defense,
 		int p_specialDefense,int p_speed,const Move& m1,const Move& m2,const Move& m3,const Move& m4):
 		Pokemon(p_name,Ghost,100,p_hp,p_attack,p_specialAttack,p_defense,p_specialDefense,p_speed,m1,m2,m3,m4){}
@@ -162,6 +164,8 @@ public:
 
 class PokemonDragon : public Pokemon{
 public:
+	static PokemonDragon DRACOLOSSE;
+
 	PokemonDragon(std::string p_name,int p_hp,int p_attack,int p_specialAttack,int p_defense,
 		int p_specialDefense,int p_speed,const Move& m1,const Move& m2,const Move& m3,const Move& m4):
 		Pokemon(p_name,Dragon,100,p_hp,p_attack,p_specialAttack,p_defense,p_specialDefense,p_speed,m1,m2,m3,m4){}

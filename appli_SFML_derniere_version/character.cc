@@ -114,8 +114,6 @@ void Character::update_index(const TileMap& carte){
 	m_ind[2].y = (m_sprite.getPosition().y + 36)/carte.get_tileSize();
 	m_ind[3].x = m_sprite.getPosition().x/carte.get_tileSize();
 	m_ind[3].y = (m_sprite.getPosition().y + 36)/carte.get_tileSize();
- //    std::cout << "tilesize = " << carte.get_tileSize() << std::endl;
-	// std::cout << "indx = " << m_indX << ", indy = " << m_indY << std::endl;
 }
 
 std::vector<sf::Vector2<int>> Character::get_indEdges(const TileMap& carte, int x, int y){

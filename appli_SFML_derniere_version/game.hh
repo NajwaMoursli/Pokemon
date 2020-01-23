@@ -21,6 +21,7 @@ private:
 	static TileMap m_map1;
 	static TileMap m_map2;
 public:
+	// static void move_releaseKey(sf::Event event);
 	static void draw_map();
 	static void initialize();
 	static void show_intro();	

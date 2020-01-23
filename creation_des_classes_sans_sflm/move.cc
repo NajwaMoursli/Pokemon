@@ -16,6 +16,16 @@ const SpecialDamage SpecialDamage::TONNERRE =
 const SpecialDamage SpecialDamage::PUISSANCECACHEEFEU = 
 	SpecialDamage("Puissance Cachee Feu",Fire,60);
 
+const PhysicalDamage PhysicalDamage::POINGFEU = PhysicalDamage("Poing Feu",Fire,75);
+const PhysicalDamage PhysicalDamage::DRACOGRIFFE = PhysicalDamage("Draco-Griffe",Fire,80);
+const PhysicalDamage PhysicalDamage::HYDROQUEUE = PhysicalDamage("Hydro-Queue",Fire,90);
+const ChangeStat ChangeStat::DANSEDRACO = ChangeStat("Danse Draco",Dragon,Attack,"increase",true);
+
+const SpecialDamage SpecialDamage::POUVANTIQUE = SpecialDamage("Pouv. Antique",Rock,60);
+const PhysicalDamage PhysicalDamage::REVENANT = PhysicalDamage("Revenant",Ghost,120);
+const PhysicalDamage PhysicalDamage::TRANCHE = PhysicalDamage("Tranche",Normal,70);
+
+
 //Marche aussi (version avec pointeurs)
 // const SpecialDamageAndChangeStat* SpecialDamageAndChangeStat::BALLOMBRE = 
 // 	new SpecialDamageAndChangeStat("Ball'Ombre",Ghost,80,SpecialDefense,"decrease",0.25);

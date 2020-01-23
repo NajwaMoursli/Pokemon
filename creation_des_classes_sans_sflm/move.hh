@@ -47,6 +47,12 @@ public:
 //les attaques qui infligent des degats physiques
 class PhysicalDamage : public Damage{
 public:
+	const static PhysicalDamage POINGFEU;
+	const static PhysicalDamage DRACOGRIFFE;
+	const static PhysicalDamage HYDROQUEUE;
+	const static PhysicalDamage REVENANT;
+	const static PhysicalDamage TRANCHE;
+
 	PhysicalDamage(std::string p_name,Type p_type,int p_damage):Move(p_name,p_type),Damage(p_name,p_type,p_damage){
 		this->Move::add_category(Physical);
 	}
@@ -60,6 +66,7 @@ public:
 	//variables static
 	const static SpecialDamage TONNERRE;
 	const static SpecialDamage PUISSANCECACHEEFEU;
+	const static SpecialDamage POUVANTIQUE;
 
 	SpecialDamage(std::string p_name,Type p_type,int p_damage):Move(p_name,p_type),Damage(p_name,p_type,p_damage){
 		this->Move::add_category(Special);
@@ -86,6 +93,8 @@ protected:
 
 
 public:
+	const static ChangeStat DANSEDRACO;
+
 	ChangeStat(std::string p_name,Type p_type,Stat p_statChanged,std::string p_modif,float p_coeffChange
 		,bool p_targetIsSelf = false):
 		Move(p_name,p_type),m_statChanged(p_statChanged),m_modif(p_modif),m_coeffChange(p_coeffChange),

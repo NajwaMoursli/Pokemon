@@ -7,7 +7,16 @@
 #include <algorithm>
 
 
-std::string Pokemon::toString(){
+PokemonGhost PokemonGhost::GIRATINA = PokemonGhost("Giratina",410,184,205,269,245,185,SpecialDamage::POUVANTIQUE, 
+	PhysicalDamage::REVENANT, PhysicalDamage::TRANCHE, PhysicalDamage::DRACOGRIFFE);
+PokemonDragon PokemonDragon::DRACOLOSSE = PokemonDragon("Dracolosse",292,273,184,195,205,181,PhysicalDamage::POINGFEU, 
+	PhysicalDamage::DRACOGRIFFE, PhysicalDamage::HYDROQUEUE, ChangeStat::DANSEDRACO);
+PokemonGhost PokemonGhost::ECTOPLASMA = PokemonGhost("Ectoplasma",261,149,270,215,205,285,
+	SpecialDamageAndChangeStat::BALLOMBRE, SpecialDamageAndChangeStat::EXPLOFORCE, SpecialDamage::TONNERRE,
+	SpecialDamage::PUISSANCECACHEEFEU);
+
+
+std::string Pokemon::toString() const{
 	// std::cout << m_name << std::endl;
 	std::string s = "Name : "+m_name;
 	s += "\nType : " + typeNames[m_type]; //car par defaut m_type part de zero
@@ -26,7 +35,7 @@ std::string Pokemon::toString(){
 	return(s);
 }
 
-std::string Pokemon::movesetToString(){
+std::string Pokemon::movesetToString() const{
 	std::string s = "Moveset : "+m_name;
 	s += "\n  1. " + m_moves[0]->get_name();
 	s += "\n  2. " + m_moves[1]->get_name();
