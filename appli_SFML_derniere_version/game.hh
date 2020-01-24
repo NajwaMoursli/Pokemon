@@ -8,6 +8,10 @@
 #include "character.hh"
 #include "tilemap.hh"
 #include "picture.hh"
+#include "text.hh"
+#include "global.hh"
+#include "move.hh"
+#include "pokemon.hh"
 
 class Tilemap;
 
@@ -15,6 +19,7 @@ class Game{
 private:
 	static sf::RenderWindow m_window;
 	static GameState m_gameState;
+	static BattleState m_battleState;
 	static Picture m_introPicture;
 	static Picture m_battleGiratinaPicture;
 	static Picture m_battleEctoplasmaPicture;
@@ -23,12 +28,17 @@ private:
 	static TileMap m_map1;
 	static TileMap m_map2;
 	static sf::Music m_music;
+	static TextPrinted m_textHpPlayer;
+	static TextPrinted m_textHpEnemy;
+	static TextPrinted m_textAction;
+
 public:
 	static void music(std::string filename, int volume);
-	static void display(Picture picture, int w, int h, std::string title);
+	static void draw_intro();
+	static void draw_map();
+	static void draw_battleGiratina();
 	static void event_pressKey(sf::Event& event, bool& collision, sf::Clock& clock);	
 	static void event_releaseKey(sf::Event& event, sf::Clock& clock);
-	static void draw_map();
 	static void initialize();
 	static void show_intro();	
 	static void show_map();

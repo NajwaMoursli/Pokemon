@@ -65,7 +65,8 @@ std::string ChangeStat::toString() const{
 	return(s);
 }
 
-void ChangeStat::increase(Pokemon& p) const{
+std::string ChangeStat::increase(Pokemon& p) const{
+	std::string str = "La stat " + statNames[this->get_statChanged()] + " de " + p.get_name() + " augmente.\n";
 	if(this->get_statChanged() == Attack){
 		int oldAttack = p.get_attack();
 		p.set_attack(oldAttack*(1+this->get_coeffChange()));
@@ -86,10 +87,11 @@ void ChangeStat::increase(Pokemon& p) const{
 		int oldSpeed = p.get_speed();
 		p.set_speed(oldSpeed*(1+this->get_coeffChange()));	
 	}
+	return(str);
 }
 
-void ChangeStat::decrease(Pokemon& p) const{
-	std::cout << "stat changed = " << statNames[this->get_statChanged()] << std::endl;
+std::string ChangeStat::decrease(Pokemon& p) const{
+	std::string str = "La stat " + statNames[this->get_statChanged()] + " de " + p.get_name() + " diminue.\n";
 	if(this->get_statChanged() == Attack){
 		int oldAttack = p.get_attack();
 		p.set_attack(oldAttack*(1-this->get_coeffChange()));
@@ -113,10 +115,12 @@ void ChangeStat::decrease(Pokemon& p) const{
 		int oldSpeed = p.get_speed();
 		p.set_speed(oldSpeed*(1-this->get_coeffChange()));	
 	}
+	return(str);
 }
 
 
-void PhysicalDamage::apply_move(Pokemon& attacker,Pokemon& defender) const{
+std::string PhysicalDamage::apply_move(Pokemon& attacker,Pokemon& defender) const{
+	std::string str;
 	int oldHp = defender.get_hp();
 	int newHp;
 	int damage = m_damage;
@@ -132,13 +136,15 @@ void PhysicalDamage::apply_move(Pokemon& attacker,Pokemon& defender) const{
 		}
 	}
 	damage *= ratio;
-	std::cout << attacker.get_name() + " a perdu " + std::to_string(damage) + " pv.\n";		
+	str = attacker.get_name() + " a perdu " + std::to_string(damage) + " pv.\n";		
 	newHp = oldHp-damage;
 	if(newHp < 0){defender.set_hp(0);}
 	else{defender.set_hp(newHp);}
+	return(str);
 }
 
-void SpecialDamage::apply_move(Pokemon& attacker,Pokemon& defender) const{
+std::string SpecialDamage::apply_move(Pokemon& attacker,Pokemon& defender) const{
+	std::string str;	
 	std::cout << "apply_move Special\n";
 	int oldHp = defender.get_hp();
 	int newHp;
@@ -159,40 +165,46 @@ void SpecialDamage::apply_move(Pokemon& attacker,Pokemon& defender) const{
 	std::cout << "puissance de l'attaque = " << m_damage << std::endl;
 
 	std::cout << "ratio = " << ratio << std::endl;
-	std::cout << attacker.get_name() + " a perdu " + std::to_string(damage) + " pv.\n";
+	str = attacker.get_name() + " a perdu " + std::to_string(damage) + " pv.\n";
 	newHp = oldHp-damage;
 	if(newHp < 0){defender.set_hp(0);}
 	else{defender.set_hp(newHp);}
+	return(str);
 }
 
-void ChangeStat::apply_move(Pokemon& attacker,Pokemon& defender) const{
+std::string ChangeStat::apply_move(Pokemon& attacker,Pokemon& defender) const{
+	std::string str;		
 	if(m_targetIsSelf){
 		if(m_modif == "increase"){
-			this->increase(attacker);
+			str = this->increase(attacker);
 		}
 		else if(m_modif == "decrease"){
-			this->decrease(attacker);
+			str = this->decrease(attacker);
 		}
 	}
 	else if(!m_targetIsSelf){
 		if(m_modif == "increase"){
-			this->increase(defender);
+			str = this->increase(defender);
 		}
 		else if(m_modif == "decrease"){
-			this->decrease(defender);
+			str = this->decrease(defender);
 		}
 	}
+	return(str);
 }
 
 
-void PhysicalDamageAndChangeStat::apply_move(Pokemon& attacker,Pokemon& defender) const{
-	this->ChangeStat::apply_move(attacker,defender);
-	this->PhysicalDamage::apply_move(attacker,defender);
+std::string PhysicalDamageAndChangeStat::apply_move(Pokemon& attacker,Pokemon& defender) const{
+	std::string stringChange = this->ChangeStat::apply_move(attacker,defender) + "\n";
+	std::string stringDamage = this->PhysicalDamage::apply_move(attacker,defender);
+	std::string str = stringChange + stringDamage;
+	return(str);
 }
 
 
-void SpecialDamageAndChangeStat::apply_move(Pokemon& attacker,Pokemon& defender) const{
-	std::cout << "caca\n";
-	this->ChangeStat::apply_move(attacker,defender);
-	this->SpecialDamage::apply_move(attacker,defender);
+std::string SpecialDamageAndChangeStat::apply_move(Pokemon& attacker,Pokemon& defender) const{
+	std::string stringChange = this->ChangeStat::apply_move(attacker,defender) + "\n";
+	std::string stringDamage = this->SpecialDamage::apply_move(attacker,defender);
+	std::string str = stringChange + stringDamage;
+	return(str);
 }

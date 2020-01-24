@@ -1,6 +1,7 @@
 main.o: main.cc global2.hh tilemap.hh character.hh game.hh picture.hh \
- global.hh move.hh pokemon.hh
-game.o: game.cc game.hh global2.hh character.hh tilemap.hh picture.hh
+ text.hh global.hh move.hh pokemon.hh
+game.o: game.cc game.hh global2.hh character.hh tilemap.hh picture.hh \
+ text.hh global.hh move.hh pokemon.hh
 global2.o: global2.cc global2.hh
 move.o: move.cc move.hh global.hh pokemon.hh
 pokemon.o: pokemon.cc pokemon.hh global.hh move.hh

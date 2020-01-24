@@ -27,13 +27,7 @@ public:
 		m_name(p_name),m_type(p_type),m_level(p_level),m_hp(p_hp),m_attack(p_attack),
 		m_specialAttack(p_specialAttack),m_defense(p_defense),m_specialDefense(p_specialDefense),
 		m_speed(p_speed){
-		
-			// for(size_t i = 0;i<m1,m2,m3,m4.size();i++){
-			// 	std::cout << "i = " << i <<std::endl;
-			// 	// Move* pm = &m1,m2,m3,m4[i];
-			// 	// std::cout << pm->get_name() << std::endl;
-			// 	// std::cout << m1,m2,m3,m4[i].get_name() << std::endl;
-			// 	// std::cout << m_moves[i]->get_name() << std::endl;
+	
 		const Move* pm0 = &m1;
 		const Move* pm1 = &m2;	
 		const Move* pm2 = &m3;
