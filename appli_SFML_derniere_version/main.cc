@@ -7,6 +7,9 @@
 #include "tilemap.hh"
 #include "character.hh"
 #include "game.hh"
+#include "global.hh"
+#include "move.hh"
+#include "pokemon.hh"
 
 
 // using namespace sf;
