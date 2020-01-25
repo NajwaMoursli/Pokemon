@@ -8,9 +8,9 @@
 
 
 const SpecialDamageAndChangeStat SpecialDamageAndChangeStat::BALLOMBRE = 
-	SpecialDamageAndChangeStat("Ball'Ombre",Ghost,80,SpecialDefense,"decrease",0.25);
+	SpecialDamageAndChangeStat("Ball'Ombre",Ghost,80,SpecialDefense,"decrease",0.25,false);
 const SpecialDamageAndChangeStat SpecialDamageAndChangeStat::EXPLOFORCE = 
-	SpecialDamageAndChangeStat("Exploforce",Fight,120,SpecialDefense,"decrease",0.25);
+	SpecialDamageAndChangeStat("Exploforce",Fight,120,SpecialDefense,"decrease",0.25,false);
 const SpecialDamage SpecialDamage::TONNERRE = 
 	SpecialDamage("Tonnerre",Electric,90);
 const SpecialDamage SpecialDamage::PUISSANCECACHEEFEU = 
@@ -19,18 +19,15 @@ const SpecialDamage SpecialDamage::PUISSANCECACHEEFEU =
 const PhysicalDamage PhysicalDamage::POINGFEU = PhysicalDamage("Poing Feu",Fire,75);
 const PhysicalDamage PhysicalDamage::DRACOGRIFFE = PhysicalDamage("Draco-Griffe",Dragon,80);
 const PhysicalDamage PhysicalDamage::HYDROQUEUE = PhysicalDamage("Hydro-Queue",Water,90);
-const ChangeStat ChangeStat::DANSEDRACO = ChangeStat("Danse Draco",Dragon,Attack,"increase",true);
+const ChangeStat ChangeStat::DANSEDRACO = ChangeStat("Danse Draco",Dragon,Attack,"increase",0.25,true);
 
 const SpecialDamage SpecialDamage::POUVANTIQUE = SpecialDamage("Pouv. Antique",Rock,60);
 const PhysicalDamage PhysicalDamage::REVENANT = PhysicalDamage("Revenant",Ghost,120);
 const PhysicalDamage PhysicalDamage::TRANCHE = PhysicalDamage("Tranche",Normal,70);
 
-
 //Marche aussi (version avec pointeurs)
 // const SpecialDamageAndChangeStat* SpecialDamageAndChangeStat::BALLOMBRE = 
 // 	new SpecialDamageAndChangeStat("Ball'Ombre",Ghost,80,SpecialDefense,"decrease",0.25);
-
-
 
 void Move::add_category(MoveCategory mc){
 	m_categories.push_back(mc);
@@ -39,7 +36,6 @@ void Move::add_category(MoveCategory mc){
 std::string Move::toString() const{
 	std::string s = "Name : "+m_name;
 	s += "\nType : "+typeNames[m_type];
-	// std::cout << "size categories = " << m_categories.size() << std::endl;
 	for(size_t i = 0;i<m_categories.size();i++){
 		s += "\n "+ moveCategoriesNames[m_categories[i]];
 	}
@@ -90,6 +86,7 @@ std::string ChangeStat::increase(Pokemon& p) const{
 	return(str);
 }
 
+
 std::string ChangeStat::decrease(Pokemon& p) const{
 	std::string str = "La stat " + statNames[this->get_statChanged()] + " de " + p.get_name() + " diminue.\n";
 	if(this->get_statChanged() == Attack){
@@ -106,9 +103,6 @@ std::string ChangeStat::decrease(Pokemon& p) const{
 	}
 	else if(this->get_statChanged() == SpecialDefense){
 		int oldSpecialDefense = p.get_specialDefense();
-		std::cout << "get_coeffChange = " << this->get_coeffChange() << std::endl;
-		std::cout << "mult = " << 1-this->get_coeffChange() << std::endl;
-		std::cout << oldSpecialDefense*(1-this->get_coeffChange()) << std::endl;
 		p.set_specialDefense(oldSpecialDefense*(1-this->get_coeffChange()));		
 	}
 	else if(this->get_statChanged() == Speed){
@@ -121,11 +115,9 @@ std::string ChangeStat::decrease(Pokemon& p) const{
 
 std::string PhysicalDamage::apply_move(Pokemon& attacker,Pokemon& defender) const{
 	std::string str;	
-	std::cout << "utlise attaque = " << m_name << std::endl;	
 	int oldHp = defender.get_hp();
 	int newHp;
 	int damage = m_damage;
-	std::cout << "ratio = " << attacker.get_attack() << "/" << defender.get_defense() << std::endl;
 	float ratio = attacker.get_attack()/defender.get_defense();
 	Type defenderType = defender.get_type();
 	std::vector<Type> weaknesses = weaknessesTable.at(defenderType);	
@@ -135,22 +127,12 @@ std::string PhysicalDamage::apply_move(Pokemon& attacker,Pokemon& defender) cons
 	for(size_t i = 0;i<weaknesses.size();i++){
 		if(m_type == weaknesses[i]){
 			damage *= 2;	
-			std::cout << "c'est super efficace.\n" << std::endl;
 			str = "C'est super efficace !\n";
 		}
 	}
 	damage *= ratio;
-	std::cout << "puissance de l'attaque = " << m_damage << std::endl;
-
-	std::cout << "ratio = " << ratio << std::endl;
 	str += defender.get_name() + " a perdu " + std::to_string(damage) + " pv.\n";
-	std::cout << str << std::endl;
-
 	newHp = oldHp-damage;
-
-	std::cout << "newHp = " << newHp << std::endl;
-	std::cout << defender.get_name() << " a maintenant " << std::to_string(newHp) << " pv.\n";
-
 	if(newHp < 0){defender.set_hp(0);}
 	else{defender.set_hp(newHp);}
 	return(str);
@@ -158,12 +140,9 @@ std::string PhysicalDamage::apply_move(Pokemon& attacker,Pokemon& defender) cons
 
 std::string SpecialDamage::apply_move(Pokemon& attacker,Pokemon& defender) const{
 	std::string str;	
-	std::cout << "utlise attaque speciale = " << m_name << std::endl;	
-
 	int oldHp = defender.get_hp();
 	int newHp;
 	int damage = m_damage;
-	std::cout << "ratio = " << attacker.get_attack() << "/" << defender.get_defense() << std::endl;
 	float ratio = attacker.get_specialAttack()/defender.get_specialDefense();
 	Type defenderType = defender.get_type();
 	std::vector<Type> weaknesses = weaknessesTable.at(defenderType);	
@@ -173,20 +152,11 @@ std::string SpecialDamage::apply_move(Pokemon& attacker,Pokemon& defender) const
 	for(size_t i = 0;i<weaknesses.size();i++){
 		if(m_type == weaknesses[i]){
 			damage *= 2;	
-			std::cout << m_damage << std::endl;
 		}
 	}
 	damage *= ratio;
-	std::cout << "puissance de l'attaque = " << damage << std::endl;
-
-	std::cout << "ratio = " << ratio << std::endl;
 	str = defender.get_name() + " a perdu " + std::to_string(damage) + " pv.\n";
-	std::cout << str << std::endl;
-
 	newHp = oldHp-damage;
-	std::cout << "newHp = " << newHp << std::endl;
-	std::cout << defender.get_name() << " a maintenant " << std::to_string(newHp) << " pv.\n";
-
 	if(newHp < 0){defender.set_hp(0);}
 	else{defender.set_hp(newHp);}
 	return(str);
@@ -194,7 +164,7 @@ std::string SpecialDamage::apply_move(Pokemon& attacker,Pokemon& defender) const
 
 std::string ChangeStat::apply_move(Pokemon& attacker,Pokemon& defender) const{
 	std::string str;		
-	if(m_targetIsSelf){
+	if(m_targetIsSelf == true){
 		if(m_modif == "increase"){
 			str = this->increase(attacker);
 		}
@@ -202,7 +172,7 @@ std::string ChangeStat::apply_move(Pokemon& attacker,Pokemon& defender) const{
 			str = this->decrease(attacker);
 		}
 	}
-	else if(!m_targetIsSelf){
+	else if(m_targetIsSelf == false){
 		if(m_modif == "increase"){
 			str = this->increase(defender);
 		}

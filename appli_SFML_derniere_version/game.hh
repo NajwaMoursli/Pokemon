@@ -24,8 +24,9 @@ private:
 	static Picture m_gameOverPicture;
 	static Picture m_battleGiratinaPicture;
 	static Picture m_battleEctoplasmaPicture;
+	static Picture m_fogPicture;
 	static Character m_peter;
-	static Character m_giratina;
+	static Picture m_giratina;
 	static TileMap m_map1;
 	static TileMap m_map2;
 	static sf::Music m_music;
@@ -46,7 +47,13 @@ public:
 	static void show_gameOver();
 	static void show_map();
 	static void show_battleGiratina();
-	// static void event_whenBattleFinished()
+	static void event_introBattle(sf::Event& event);
+	static void event_choice(sf::Event& event, int& attackChoice);
+	static void event_playerAttack(sf::Event& event, BattleState& nextBattleState, std::string& str, int& attackChoice, int& counter);
+	static void event_enemyAttack(sf::Event& event, BattleState& nextBattleState, std::string& str, int& enemyAttackChoice, int& counter);
+	static void event_transition(sf::Event& event, BattleState& nextBattleState, GameState& nextGameState);
+	static void event_lost(sf::Event& event, BattleState& nextBattleState, GameState& nextGameState, std::string& str);
+	static void event_won(sf::Event& event, BattleState& nextBattleState, GameState& nextGameState, std::string& str);
 	static void loop();
 	static void launch();
 };

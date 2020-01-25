@@ -50,7 +50,7 @@ public:
 	float get_speed() const{return(m_speed);}
 
 	//setters
-	void set_hp(int p_hp){std::cout << "newHp in set = " << p_hp << std::endl; m_hp = p_hp;}
+	void set_hp(int p_hp){m_hp = p_hp;}
 	void set_attack(float p_attack){m_attack = p_attack;}
 	void set_specialAttack(float p_specialAttack){m_specialAttack = p_specialAttack;}
 	void set_defense(float p_defense){m_defense = p_defense;}

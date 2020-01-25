@@ -96,7 +96,7 @@ public:
 	const static ChangeStat DANSEDRACO;
 
 	ChangeStat(std::string p_name,Type p_type,Stat p_statChanged,std::string p_modif,float p_coeffChange
-		,bool p_targetIsSelf = false):
+		,bool p_targetIsSelf):
 		Move(p_name,p_type),m_statChanged(p_statChanged),m_modif(p_modif),m_coeffChange(p_coeffChange),
 		m_targetIsSelf(p_targetIsSelf){
 			if(p_targetIsSelf){
@@ -122,10 +122,10 @@ public:
 class PhysicalDamageAndChangeStat : public PhysicalDamage, public ChangeStat{
 public:
 	PhysicalDamageAndChangeStat(std::string p_name,Type p_type,int p_damage,Stat p_statChanged,
-	std::string p_modif,float p_coeffChange):
+	std::string p_modif,float p_coeffChange,bool p_targetIsSelf):
 		Move(p_name,p_type),
 		PhysicalDamage(p_name,p_type,p_damage),
-		ChangeStat(p_name,p_type,p_statChanged,p_modif,p_coeffChange)
+		ChangeStat(p_name,p_type,p_statChanged,p_modif,p_coeffChange,p_targetIsSelf)
 		{}
 
 	virtual std::string apply_move(Pokemon& attacker,Pokemon& defender) const;
@@ -139,11 +139,11 @@ public:
 	const static SpecialDamageAndChangeStat EXPLOFORCE;
 	
 	SpecialDamageAndChangeStat(std::string p_name,Type p_type,int p_damage,Stat p_statChanged,
-	std::string p_modif,float p_coeffChange):
+	std::string p_modif,float p_coeffChange,bool p_targetIsSelf):
 		Move(p_name,p_type),
 		SpecialDamage(p_name,p_type,p_damage),
-		ChangeStat(p_name,p_type,p_statChanged,p_modif,p_coeffChange)
-		{std::cout << "specialdamageandchangestat constructeur\n";}
+		ChangeStat(p_name,p_type,p_statChanged,p_modif,p_coeffChange,p_targetIsSelf)
+		{}
 		
 	virtual std::string apply_move(Pokemon& attacker,Pokemon& defender) const;
 };

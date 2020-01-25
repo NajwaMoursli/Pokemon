@@ -13,7 +13,7 @@ private:
 public:
 	TextPrinted(std::string fontName, std::string string, int size, int x, int y){
 		if(!m_font.loadFromFile(fontName)){std::cout << "erreur importation font\n";}
-		m_text.setFont(m_font); // font est un sf::Font
+		m_text.setFont(m_font); 
 		m_text.setString(string);
 		m_text.setFillColor(sf::Color::Black);
 		m_text.setCharacterSize(size); // exprimée en pixels, pas en points !

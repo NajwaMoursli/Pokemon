@@ -18,4 +18,4 @@ $(EXEC): $(OBJECTS)
 	g++ -std=c++11 -MM $(SOURCES) > .depend
 -include .depend
 clean:
-	rm -f $(OBJECTS) $(EXEC)
+	rm -f $(OBJECTS)

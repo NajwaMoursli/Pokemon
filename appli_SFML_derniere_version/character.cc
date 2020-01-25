@@ -2,6 +2,7 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include "global2.hh"
+#include "picture.hh"
 #include "character.hh"
 #include "tilemap.hh"
 #include <vector>
@@ -9,8 +10,7 @@
 
 //anime et deplace le perso s'il n'y a pas d'obstacleL
 void Character::move_down(bool collision, sf::Clock& clock){
-	if(clock.getElapsedTime().asSeconds() > 0.13){ //pour ralentir l'animation, sinon elle est trop rapide
-		// std::cout << m_intRect.left << ", " << m_intRect.top << std::endl; //immobile bas : 67 33
+	if(clock.getElapsedTime().asSeconds() > 0.10){ //pour ralentir l'animation, sinon elle est trop rapide
 		if((m_intRect.left == 67 and m_intRect.top == 33)or(m_intRect.left == 68 and m_intRect.top == 97)){
 	    	m_intRect.left = 66;
 			m_intRect.top = 64;
@@ -25,16 +25,16 @@ void Character::move_down(bool collision, sf::Clock& clock){
 		}
 	m_sprite.setTextureRect(m_intRect);
 	if(!collision){
-		m_sprite.move(0,13);
+		m_sprite.move(0,10);
 	}
 	clock.restart();
 	}
 }
 
+
 //anime et deplace le perso s'il n'y a pas d'obstacle
 void Character::move_up(bool collision, sf::Clock& clock){
-	if(clock.getElapsedTime().asSeconds() > 0.13){ //pour ralentir l'animation, sinon elle est trop rapide
-		// std::cout << m_intRect.left << ", " << m_intRect.top << std::endl;
+	if(clock.getElapsedTime().asSeconds() > 0.10){ //pour ralentir l'animation, sinon elle est trop rapide
 		if((m_intRect.left == 0 and m_intRect.top == 0)or(m_intRect.left == 69 and m_intRect.top == 0)){
 	    	m_intRect.left = 36;
 			m_intRect.top = 96;
@@ -46,20 +46,19 @@ void Character::move_up(bool collision, sf::Clock& clock){
 		else{
 			m_intRect.left = 0;
 			m_intRect.top = 0;
-			// std::cout << "changement immobile dans move up\n";
 		}
 	m_sprite.setTextureRect(m_intRect);
 	if(!collision){
-		m_sprite.move(0,-13);
+		m_sprite.move(0,-10);
 	}
 	clock.restart();
 	}
 }
 
+
 //anime et deplace le perso s'il n'y a pas d'obstacle
 void Character::move_right(bool collision, sf::Clock& clock){
-	if(clock.getElapsedTime().asSeconds() > 0.13){ //pour ralentir l'animation, sinon elle est trop rapide
-		// std::cout << m_intRect.left << ", " << m_intRect.top << std::endl;
+	if(clock.getElapsedTime().asSeconds() > 0.10){ //pour ralentir l'animation, sinon elle est trop rapide
 		if((m_intRect.left == 35 and m_intRect.top == 0)or(m_intRect.left == 35 and m_intRect.top == 65)){
 	    	m_intRect.left = 34;
 			m_intRect.top = 33;
@@ -74,16 +73,16 @@ void Character::move_right(bool collision, sf::Clock& clock){
 		}
 	m_sprite.setTextureRect(m_intRect);
 	if(!collision){
-		m_sprite.move(13,0);
+		m_sprite.move(10,0);
 	}
 	clock.restart();
 	}
 }
 
+
 //anime et deplace le perso s'il n'y a pas d'obstacle
 void Character::move_left(bool collision, sf::Clock& clock){
-	if(clock.getElapsedTime().asSeconds() > 0.13){ //pour ralentir l'animation, sinon elle est trop rapide
-		// std::cout << m_intRect.left << ", " << m_intRect.top << std::endl;
+	if(clock.getElapsedTime().asSeconds() > 0.10){ //pour ralentir l'animation, sinon elle est trop rapide
 		if((m_intRect.left == 5 and m_intRect.top == 65)or(m_intRect.left == 4 and m_intRect.top == 96)){
 	    	m_intRect.left = 4;
 			m_intRect.top = 34;
@@ -98,13 +97,14 @@ void Character::move_left(bool collision, sf::Clock& clock){
 		}
 	m_sprite.setTextureRect(m_intRect);
 	if(!collision){
-		m_sprite.move(-13,0);
+		m_sprite.move(-10,0);
 	}
 	clock.restart();
 	}
 }
 
-//donne l'indice (iX,iY) de la case ou tile dans laquelle se trouve un point :
+
+//donne l'indice (iX,iY) de la case ou tile dans laquelle se trouve un point
 void Character::update_index(const TileMap& carte){
 	m_ind[0].x = m_sprite.getPosition().x/carte.get_tileSize();
 	m_ind[0].y = m_sprite.getPosition().y/carte.get_tileSize();
@@ -116,6 +116,8 @@ void Character::update_index(const TileMap& carte){
 	m_ind[3].y = (m_sprite.getPosition().y + 36)/carte.get_tileSize();
 }
 
+
+//donne l'indice des quatre coins de l'image
 std::vector<sf::Vector2<int>> Character::get_indEdges(const TileMap& carte, int x, int y){
 	std::vector<sf::Vector2<int>> indEdges = {{0,0},{0,0},{0,0},{0,0}};
 	indEdges[0].x = x/carte.get_tileSize();
@@ -128,6 +130,7 @@ std::vector<sf::Vector2<int>> Character::get_indEdges(const TileMap& carte, int 
 	indEdges[3].y = (y + 36)/carte.get_tileSize();
 	return(indEdges);
 }
+
 
 bool Character::inObstacleTile(const TileMap& carte, const int* tiles,const int* tiles2, std::vector<sf::Vector2<int>> indEdges, int& intersectX, int& intersectY){
 	bool inObstacle = false;
@@ -164,27 +167,19 @@ bool Character::collision(Direction direction, const TileMap& carte, const int* 
 	int posY = m_sprite.getPosition().y; 
 	int newX = posX;
 	int newY = posY;
-
-	std::cout << "old x = " << newX << " , old y = " << newY << std::endl;
-	if(direction == UP){newY -= 13;}
-	if(direction == DOWN){newY += 13;}
-	if(direction == RIGHT){newX += 13;}
-	if(direction == LEFT){newX -= 13;}
-	// std::cout << "new x = " << newX << " , new y = " << newY << std::endl; 
-	
+	if(direction == UP){newY -= 10;}
+	if(direction == DOWN){newY += 10;}
+	if(direction == RIGHT){newX += 10;}
+	if(direction == LEFT){newX -= 10;}
  	int obstacleX = 0; 
  	int obstacleY = 0; 
  	int intersectX = 0;
  	int intersectY = 0;	
-	std::vector<sf::Vector2<int>> newIndEdges = get_indEdges(carte,newX,newY); //donnes les points au bord de la nouvelle position du perso
-
- 	// std::cout << "tile2 = " << tiles2[newIndX + newIndY*carte.get_xTiles()] << std::endl;
-	// std::cout << "distance obs x = " << abs(obstacleX - posX) << " , distance obs y = " << abs(obstacleY - posY) << std::endl; 
+	std::vector<sf::Vector2<int>> newIndEdges = get_indEdges(carte,newX,newY); //donnes les points au bord de la nouvelle position du perso 
  	if(inObstacleTile(carte, tiles, tiles2, newIndEdges, intersectX, intersectY)){
- 		std::cout << "obstacle\n";
  		obstacleX = carte.get_vertices()[intersectX][intersectY][0].position.x;
  		obstacleY = carte.get_vertices()[intersectX][intersectY][0].position.y;
- 		if(abs(obstacleX - posX) < 17*1.5+1 or abs(obstacleY - posY) < 27*1.5+1){
+ 		if(abs(obstacleX - posX) < 40 or abs(obstacleY - posY) < 40){
  			collision = true;
  		}
  	}	
