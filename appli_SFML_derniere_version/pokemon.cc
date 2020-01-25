@@ -7,7 +7,7 @@
 #include <algorithm>
 
 
-PokemonGhost PokemonGhost::GIRATINA = PokemonGhost("Giratina",410,184,205,269,245,185,SpecialDamage::POUVANTIQUE, 
+PokemonGhost PokemonGhost::GIRATINA = PokemonGhost("Giratina",410,184,205,269,245,180,SpecialDamage::POUVANTIQUE, 
 	PhysicalDamage::REVENANT, PhysicalDamage::TRANCHE, PhysicalDamage::DRACOGRIFFE);
 PokemonDragon PokemonDragon::DRACOLOSSE = PokemonDragon("Dracolosse",292,273,184,195,205,181,PhysicalDamage::POINGFEU, 
 	PhysicalDamage::DRACOGRIFFE, PhysicalDamage::HYDROQUEUE, ChangeStat::DANSEDRACO);

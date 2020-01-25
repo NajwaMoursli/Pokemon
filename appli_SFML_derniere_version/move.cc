@@ -17,8 +17,8 @@ const SpecialDamage SpecialDamage::PUISSANCECACHEEFEU =
 	SpecialDamage("Puissance Cachee Feu",Fire,60);
 
 const PhysicalDamage PhysicalDamage::POINGFEU = PhysicalDamage("Poing Feu",Fire,75);
-const PhysicalDamage PhysicalDamage::DRACOGRIFFE = PhysicalDamage("Draco-Griffe",Fire,80);
-const PhysicalDamage PhysicalDamage::HYDROQUEUE = PhysicalDamage("Hydro-Queue",Fire,90);
+const PhysicalDamage PhysicalDamage::DRACOGRIFFE = PhysicalDamage("Draco-Griffe",Dragon,80);
+const PhysicalDamage PhysicalDamage::HYDROQUEUE = PhysicalDamage("Hydro-Queue",Water,90);
 const ChangeStat ChangeStat::DANSEDRACO = ChangeStat("Danse Draco",Dragon,Attack,"increase",true);
 
 const SpecialDamage SpecialDamage::POUVANTIQUE = SpecialDamage("Pouv. Antique",Rock,60);
@@ -120,24 +120,37 @@ std::string ChangeStat::decrease(Pokemon& p) const{
 
 
 std::string PhysicalDamage::apply_move(Pokemon& attacker,Pokemon& defender) const{
-	std::string str;
+	std::string str;	
+	std::cout << "utlise attaque = " << m_name << std::endl;	
 	int oldHp = defender.get_hp();
 	int newHp;
 	int damage = m_damage;
-	int ratio = attacker.get_attack()/defender.get_defense();
-	const Type defenderType = defender.get_type();
-	std::vector<Type> weaknesses = weaknessesTable.at(defenderType);
+	std::cout << "ratio = " << attacker.get_attack() << "/" << defender.get_defense() << std::endl;
+	float ratio = attacker.get_attack()/defender.get_defense();
+	Type defenderType = defender.get_type();
+	std::vector<Type> weaknesses = weaknessesTable.at(defenderType);	
 	if(m_type == attacker.get_type()){//s'il y a un bonus STAB
 		damage *= 1.5;
 	}
-	for(size_t i = 0;i<weaknesses.size();i++){//s'il y a une faiblesse
+	for(size_t i = 0;i<weaknesses.size();i++){
 		if(m_type == weaknesses[i]){
-			damage *= 2;			
+			damage *= 2;	
+			std::cout << "c'est super efficace.\n" << std::endl;
+			str = "C'est super efficace !\n";
 		}
 	}
 	damage *= ratio;
-	str = attacker.get_name() + " a perdu " + std::to_string(damage) + " pv.\n";		
+	std::cout << "puissance de l'attaque = " << m_damage << std::endl;
+
+	std::cout << "ratio = " << ratio << std::endl;
+	str += defender.get_name() + " a perdu " + std::to_string(damage) + " pv.\n";
+	std::cout << str << std::endl;
+
 	newHp = oldHp-damage;
+
+	std::cout << "newHp = " << newHp << std::endl;
+	std::cout << defender.get_name() << " a maintenant " << std::to_string(newHp) << " pv.\n";
+
 	if(newHp < 0){defender.set_hp(0);}
 	else{defender.set_hp(newHp);}
 	return(str);
@@ -145,13 +158,15 @@ std::string PhysicalDamage::apply_move(Pokemon& attacker,Pokemon& defender) cons
 
 std::string SpecialDamage::apply_move(Pokemon& attacker,Pokemon& defender) const{
 	std::string str;	
-	std::cout << "apply_move Special\n";
+	std::cout << "utlise attaque speciale = " << m_name << std::endl;	
+
 	int oldHp = defender.get_hp();
 	int newHp;
 	int damage = m_damage;
+	std::cout << "ratio = " << attacker.get_attack() << "/" << defender.get_defense() << std::endl;
 	float ratio = attacker.get_specialAttack()/defender.get_specialDefense();
 	Type defenderType = defender.get_type();
-	std::vector<Type> weaknesses = weaknessesTable.at(defenderType);
+	std::vector<Type> weaknesses = weaknessesTable.at(defenderType);	
 	if(m_type == attacker.get_type()){//s'il y a un bonus STAB
 		damage *= 1.5;
 	}
@@ -162,11 +177,16 @@ std::string SpecialDamage::apply_move(Pokemon& attacker,Pokemon& defender) const
 		}
 	}
 	damage *= ratio;
-	std::cout << "puissance de l'attaque = " << m_damage << std::endl;
+	std::cout << "puissance de l'attaque = " << damage << std::endl;
 
 	std::cout << "ratio = " << ratio << std::endl;
-	str = attacker.get_name() + " a perdu " + std::to_string(damage) + " pv.\n";
+	str = defender.get_name() + " a perdu " + std::to_string(damage) + " pv.\n";
+	std::cout << str << std::endl;
+
 	newHp = oldHp-damage;
+	std::cout << "newHp = " << newHp << std::endl;
+	std::cout << defender.get_name() << " a maintenant " << std::to_string(newHp) << " pv.\n";
+
 	if(newHp < 0){defender.set_hp(0);}
 	else{defender.set_hp(newHp);}
 	return(str);

@@ -4,6 +4,7 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include "pokemon.hh"
 #include "global2.hh"
 #include "character.hh"
 #include "tilemap.hh"
@@ -11,7 +12,6 @@
 #include "text.hh"
 #include "global.hh"
 #include "move.hh"
-#include "pokemon.hh"
 
 class Tilemap;
 
@@ -21,6 +21,7 @@ private:
 	static GameState m_gameState;
 	static BattleState m_battleState;
 	static Picture m_introPicture;
+	static Picture m_gameOverPicture;
 	static Picture m_battleGiratinaPicture;
 	static Picture m_battleEctoplasmaPicture;
 	static Character m_peter;
@@ -37,13 +38,15 @@ public:
 	static void draw_intro();
 	static void draw_map();
 	static void draw_battleGiratina();
+	static void draw_gameOver();
 	static void event_pressKey(sf::Event& event, bool& collision, sf::Clock& clock);	
 	static void event_releaseKey(sf::Event& event, sf::Clock& clock);
 	static void initialize();
 	static void show_intro();	
+	static void show_gameOver();
 	static void show_map();
 	static void show_battleGiratina();
-	static void show_battleEctoplasma();
+	// static void event_whenBattleFinished()
 	static void loop();
 	static void launch();
 };
