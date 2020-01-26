@@ -1,3 +1,0 @@
-Pokemon Game using SFML
-=========
-
