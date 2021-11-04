@@ -1,0 +1,9 @@
+simplifications
+- le dresseur ne possede qu'un pokemon car on veut eviter l'option d'echange de pokemon 
+- map avec seulement du carrelage, pas d'obstacles, de murs car on veut eviter de devoir coder des couches
+- on ne mettra pas toutes les categories d'attaque, par exemple par d'attaques qui changent le statut de 
+pokemon (paralysie, sommeil, brulure, gel) et on ne fait pas d'heritage avec ChangeStat pour distinguer
+les changements de status sur soi meme ou sur un ennemi
+- pas d'affichage des animations de attaques etc
+- pas d'affichage de bulles de dialogue interactives (texte qui defile)
+- que 3 pokemon ennemis a affronter car on veut eviter trop de pokemon
